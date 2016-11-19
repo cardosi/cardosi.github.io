@@ -183,12 +183,12 @@ dealEm();
 ////////////////////////////////////////////////////
 //Hit///////////////////////////////////////////////
 
-var createHitObjects = function(){
+var playerHitObjects = function(){
   playerHandArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
 };
 
 
-var createHitElements = function(){
+var playerHitElements = function(){
   $('.shoeCard').eq(0).remove()
   var $playerCard = $('<div>');
   $playerCard.addClass('playerHand');
@@ -197,12 +197,32 @@ var createHitElements = function(){
   $playerHand.append($playerCard);
 }
 
-var hitMe = function(){
-  createHitObjects();
-  createHitElements();
+var dealerHitObjects = function(){
+  dealerHandArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+};
+
+
+var dealerHitElements = function(){
+  $('.shoeCard').eq(0).remove()
+  var $dealerCard = $('<div>');
+  $dealerCard.addClass('dealerHand');
+  $dealerCard.addClass(dealerHandArr[dealerHandArr.length-1].suit);
+  $dealerCard.addClass(dealerHandArr[dealerHandArr.length-1].faceVal);
+  $dealerUp.append($dealerCard);
 }
 
-hitMe();
+var hitPlayer = function(){
+  playerHitObjects();
+  playerHitElements();
+}
+
+var hitDealer = function(){
+  dealerHitObjects();
+  dealerHitElements();
+}
+
+hitPlayer();
+hitDealer();
 
 console.log(dealerHandArr);
 console.log(playerHandArr);
@@ -218,25 +238,42 @@ var getScore = function(arr){
   return score;
 }
 console.log(getScore(playerHandArr));
-console.log(getScore(dealerHandArr))
+console.log(getScore(dealerHandArr));
 
 
+//////////////////////////////////////////////////
+//Bank////////////////////////////////////////////
 
+var bankArr = [];
+var betArr = [];
 
+var Chip = function(denom){
+  this.denom = denom;
+  this.bet = false;
+  this.won = false;
+};
 
+var createBankObjects = function(){
+  for(var i = 0; i < 2; i++){
+    var chip100 = new Chip(100);
+    bankArr.push(chip100);
+  }
+  for(var i = 0; i < 6; i++){
+    var chip25 = new Chip(25);
+    bankArr.push(chip25);
+  }
+  for(var i = 0; i < 10; i++){
+    var chip10 = new Chip(10);
+    bankArr.push(chip10);
+  }
+  for(var i = 0; i < 10; i++){
+    var chip5 = new Chip(5);
+    bankArr.push(chip5);
+  }
+}
 
-// var $shoeCard = $('.shoeCard');
-// var $dealerDown = $('#dealer_down');
-// var $dealerUp = $('#dealer_up');
-// var $player = $('#player_hand');
-// var deal = function(){
-//   $dealerDown.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
-//   $dealerUp.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
-//   $player.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
-//   $player.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
-// }
-//
-// deal();
+createBankObjects();
+console.log(bankArr);
 
 
 
