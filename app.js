@@ -13,6 +13,7 @@ var $shoe = $('#shoe');
 var $dealerDown = $('#dealer_down');
 var $dealerUp = $('#dealer_up');
 var $playerHand = $('#player_hand');
+var $bank = $('#bank');
 
 //Create 52 objects/////////////////////////////////
 
@@ -275,6 +276,17 @@ var createBankObjects = function(){
 createBankObjects();
 console.log(bankArr);
 
+var populateBank = function(){
+  $(bankArr).each(function(){
+    var $chip = $('<div>');
+    $chip.addClass('chip');
+    $chip.addClass('bankChip');
+    $chip.addClass(this.denom);
+    $bank.append($chip);
+  })
+}
+
+populateBank();
 
 
 
