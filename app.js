@@ -104,20 +104,25 @@ populateShoe();
 /////////////////////////////////////////////
 //Create Dealt Objects///////////////////////
 
-var inPlayArr = [];
+var dealerHandArr = [];
+var playerHandArr = [];
 
 var createDealtObjects = function(){
-  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-  inPlayArr[0].dealerDown = true;
-  inPlayArr[1].dealerUp = true;
-  inPlayArr[2].playerHand = true;
-  inPlayArr[3].playerHand = true;
-  for(var i = 0; i < inPlayArr.length; i++){
-    inPlayArr[i].inPlay = true;
-    inPlayArr[i].shoe = false;
+  dealerHandArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  dealerHandArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  playerHandArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  playerHandArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  dealerHandArr[0].dealerDown = true;
+  dealerHandArr[1].dealerUp = true;
+  playerHandArr[0].playerHand = true;
+  playerHandArr[1].playerHand = true;
+  for(var i = 0; i < dealerHandArr.length; i++){
+    dealerHandArr[i].inPlay = true;
+    dealerHandArr[i].shoe = false;
+  }
+  for(var i = 0; i < playerHandArr.length; i++){
+    playerHandArr[i].inPlay = true;
+    playerHandArr[i].shoe = false;
   }
 }
 
@@ -130,33 +135,40 @@ var createDealtElements = function(){
   $('.shoeCard').eq(0).remove()
   $('.shoeCard').eq(0).remove()
 
-var addSuitFace = function(){
-  $card.addClass(inPlayArr[i].faceVal);
-  $card.addClass(inPlayArr[i].suit);
-  $card.addClass("inPlay");
+var addDealerSuitFace = function(){
+  $dealerCard.addClass(dealerHandArr[i].faceVal);
+  $dealerCard.addClass(dealerHandArr[i].suit);
 };
 
-  for(var i = 0; i < inPlayArr.length; i++){
-    if(inPlayArr[i].dealerDown === true){
-      var $card  = $('<div>');
-      $card.addClass('dealerDown');
-      addSuitFace();
-      $dealerDown.append($card);
-    }else if(inPlayArr[i].dealerUp === true){
-      var $card = $('<div>');
-      $card.addClass('dealerUp');
-      addSuitFace();
-      $dealerUp.append($card);
-    }else if(inPlayArr[i].playerHand === true){
-      var $card = $('<div>');
-      $card.addClass('playerHand');
-      addSuitFace();
-      $playerHand.append($card);
+var addPlayerSuitFace = function(){
+  $playerCard.addClass(playerHandArr[i].faceVal);
+  $playerCard.addClass(playerHandArr[i].suit);
+};
+
+
+  for(var i = 0; i < dealerHandArr.length; i++){
+    if(dealerHandArr[i].dealerDown === true){
+      var $dealerCard  = $('<div>');
+      $dealerCard.addClass('dealerDown');
+      addDealerSuitFace();
+      $dealerDown.append($dealerCard);
+    }else if(dealerHandArr[i].dealerUp === true){
+      var $dealerCard = $('<div>');
+      $dealerCard.addClass('dealerUp');
+      addDealerSuitFace();
+      $dealerUp.append($dealerCard);
+    }
+  }
+  for(var i = 0; i < playerHandArr.length; i++){
+    if(playerHandArr[i].playerHand === true){
+      var $playerCard = $('<div>');
+      $playerCard.addClass('playerHand');
+      addPlayerSuitFace();
+      $playerHand.append($playerCard);
     }
   }
 }
 
-console.log(inPlayArr);
 
 /////////////////////////////////////////////////////
 //Deal function//////////////////////////////////////
@@ -167,6 +179,47 @@ var dealEm = function(){
 }
 
 dealEm();
+
+////////////////////////////////////////////////////
+//Hit///////////////////////////////////////////////
+
+var createHitObjects = function(){
+  playerHandArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+};
+
+
+var createHitElements = function(){
+  $('.shoeCard').eq(0).remove()
+  var $playerCard = $('<div>');
+  $playerCard.addClass('playerHand');
+  $playerCard.addClass(playerHandArr[playerHandArr.length-1].suit);
+  $playerCard.addClass(playerHandArr[playerHandArr.length-1].faceVal);
+  $playerHand.append($playerCard);
+}
+
+var hitMe = function(){
+  createHitObjects();
+  createHitElements();
+}
+
+hitMe();
+
+console.log(dealerHandArr);
+console.log(playerHandArr);
+
+//////////////////////////////////////////////////////////////
+//Conditions & Behaviors//////////////////////////////////////
+
+var getScore = function(arr){
+  var score = 0
+  for(var i = 0; i < arr.length; i++){
+    score += arr[i].pointVal;
+  }
+  return score;
+}
+console.log(getScore(playerHandArr));
+console.log(getScore(dealerHandArr))
+
 
 
 
