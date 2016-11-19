@@ -100,17 +100,6 @@ var populateShoe = function(){
 }
 populateShoe();
 
-////////////////////////////////////////////
-//Repopulate Shoe///////////////////////////
-
-// var rePopulateShoe = function(){
-//   $shoe.empty();
-//   $(shoeArr).each(function(){
-//     var $card = $('<div>');
-//     $card.addClass('shoeCard');
-//     $shoe.append($card);
-//   })
-// }
 
 /////////////////////////////////////////////
 //Create Dealt Objects///////////////////////
@@ -141,22 +130,33 @@ var createDealtElements = function(){
   $('.shoeCard').eq(0).remove()
   $('.shoeCard').eq(0).remove()
 
+var addSuitFace = function(){
+  $card.addClass(inPlayArr[i].faceVal);
+  $card.addClass(inPlayArr[i].suit);
+  $card.addClass("inPlay");
+};
+
   for(var i = 0; i < inPlayArr.length; i++){
     if(inPlayArr[i].dealerDown === true){
       var $card  = $('<div>');
       $card.addClass('dealerDown');
+      addSuitFace();
       $dealerDown.append($card);
     }else if(inPlayArr[i].dealerUp === true){
       var $card = $('<div>');
       $card.addClass('dealerUp');
+      addSuitFace();
       $dealerUp.append($card);
     }else if(inPlayArr[i].playerHand === true){
       var $card = $('<div>');
       $card.addClass('playerHand');
+      addSuitFace();
       $playerHand.append($card);
     }
   }
 }
+
+console.log(inPlayArr);
 
 /////////////////////////////////////////////////////
 //Deal function//////////////////////////////////////
