@@ -16,7 +16,6 @@ for(var i = 0; i < 312; i++){
   shoeArr.push(cardObj);
 };
 
-console.log(shoeArr);
 ////////////////////////////////////////////////
 //Assign Suits//////////////////////////////////
 for(var i = 0; i < shoeArr.length; i+=4){
@@ -99,10 +98,33 @@ populateShoe();
 /////////////////////////////////////////////
 //Deal///////////////////////////////////////
 
-var $dealerDown = $('#dealer_down');
-var $dealerUp = $('#dealer_up');
-$dealerDown.append($card.eq(Math.floor(Math.random()*shoeArr.length)));
-$dealerUp.append($card.eq(Math.floor(Math.random()*shoeArr.length)));
+var inPlay = [];
+
+inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+inPlay[0].dealerDown = true;
+inPlay[1].dealerUp = true;
+inPlay[2, 3].playerHand = true;
+
+console.log(inPlay);
+
+
+
+// var $shoeCard = $('.shoeCard');
+// var $dealerDown = $('#dealer_down');
+// var $dealerUp = $('#dealer_up');
+// var $player = $('#player_hand');
+// var deal = function(){
+//   $dealerDown.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
+//   $dealerUp.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
+//   $player.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
+//   $player.append($shoeCard.eq(Math.floor(Math.random()*($shoeCard).length)));
+// }
+//
+// deal();
+
 
 
 
