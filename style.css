@@ -15,6 +15,34 @@ div {
   width: 2px;
 }
 
+#bank {
+  height: 200px;
+  width: 100%;
+}
+
+#bank100 {
+  height: 200px;
+  width: 10%;
+}
+#bank25 {
+  height: 200px;
+  width: 20%;
+}
+#bank10 {
+  height: 200px;
+  width: 30%;
+}
+#bank5 {
+  height: 200px;
+  width: 30%;
+}
+
+.chip {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+}
+
 .ace.clubs {
   background-image: url('images/PNG-cards-1.3/ace_of_clubs.png');
   background-size: 100%;

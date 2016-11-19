@@ -1,4 +1,11 @@
+//Event Handlers///////////////////////////////////////////////
+var bet = function(){
+  console.log("works");
+  $bet.append($(this));
+};
 
+///////////////////////////////////////////////////////////////
+//Card Constructor////////////////////////////////////////////
 var Card = function(uid){
   this.uid = uid;
   this.shoe = true;
@@ -6,14 +13,21 @@ var Card = function(uid){
   this.inPlay = false;
 };
 
-var shoeArr = [];
+//////////////////////////////////////////////////////////////
+//variables///////////////////////////////////////////////////
 
+var shoeArr = [];
 var $body = $('body');
 var $shoe = $('#shoe');
 var $dealerDown = $('#dealer_down');
 var $dealerUp = $('#dealer_up');
 var $playerHand = $('#player_hand');
 var $bank = $('#bank');
+var $bank100 = $('#bank100');
+var $bank25 = $('#bank25');
+var $bank10 = $('#bank10');
+var $bank5 = $('#bank5');
+var $bet = $('#bet');
 
 //Create 52 objects/////////////////////////////////
 
@@ -254,39 +268,61 @@ var Chip = function(denom){
   this.won = false;
 };
 
-var createBankObjects = function(){
+var createBank = function(){
   for(var i = 0; i < 2; i++){
     var chip100 = new Chip(100);
     bankArr.push(chip100);
+    var $chip = $('<div>');
+    $chip.on('click', bet);
+    $chip.addClass('chip');
+    $chip.addClass('bankChip');
+    $chip.addClass('100Chip');
+    $chip.text('100');
+    $bank100.append($chip);
   }
   for(var i = 0; i < 6; i++){
     var chip25 = new Chip(25);
     bankArr.push(chip25);
+    var $chip = $('<div>');
+    $chip.on('click', bet);
+    $chip.addClass('chip');
+    $chip.addClass('bankChip');
+    $chip.addClass('25Chip');
+    $chip.text('25');
+    $bank25.append($chip);
   }
   for(var i = 0; i < 10; i++){
     var chip10 = new Chip(10);
     bankArr.push(chip10);
+    var $chip = $('<div>');
+    $chip.on('click', bet);
+    $chip.addClass('chip');
+    $chip.addClass('bankChip');
+    $chip.addClass('10Chip');
+    $chip.text('10');
+    $bank10.append($chip);
   }
   for(var i = 0; i < 10; i++){
     var chip5 = new Chip(5);
     bankArr.push(chip5);
+    var $chip = $('<div>');
+    $chip.on('click', bet);
+    $chip.addClass('chip');
+    $chip.addClass('bankChip');
+    $chip.addClass('5Chip');
+    $chip.text('5');
+    $bank5.append($chip);
   }
 }
 
-createBankObjects();
+createBank();
 console.log(bankArr);
 
-var populateBank = function(){
-  $(bankArr).each(function(){
-    var $chip = $('<div>');
-    $chip.addClass('chip');
-    $chip.addClass('bankChip');
-    $chip.addClass(this.denom);
-    $bank.append($chip);
-  })
-}
+//////////////////////////////////////////////////
+//Bet/////////////////////////////////////////////
 
-populateBank();
+
+
 
 
 
