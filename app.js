@@ -2,12 +2,17 @@
 var Card = function(uid){
   this.uid = uid;
   this.shoe = true;
+  this.dealerDown = false;
+  this.inPlay = false;
 };
 
 var shoeArr = [];
 
 var $body = $('body');
 var $shoe = $('#shoe');
+var $dealerDown = $('#dealer_down');
+var $dealerUp = $('#dealer_up');
+var $playerHand = $('#player_hand');
 
 //Create 52 objects/////////////////////////////////
 
@@ -95,20 +100,75 @@ var populateShoe = function(){
 }
 populateShoe();
 
+////////////////////////////////////////////
+//Repopulate Shoe///////////////////////////
+
+// var rePopulateShoe = function(){
+//   $shoe.empty();
+//   $(shoeArr).each(function(){
+//     var $card = $('<div>');
+//     $card.addClass('shoeCard');
+//     $shoe.append($card);
+//   })
+// }
+
 /////////////////////////////////////////////
-//Deal///////////////////////////////////////
+//Create Dealt Objects///////////////////////
 
-var inPlay = [];
+var inPlayArr = [];
 
-inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-inPlay.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
-inPlay[0].dealerDown = true;
-inPlay[1].dealerUp = true;
-inPlay[2, 3].playerHand = true;
+var createDealtObjects = function(){
+  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  inPlayArr.push(shoeArr.splice(Math.floor(Math.random()*shoeArr.length), 1)[0]);
+  inPlayArr[0].dealerDown = true;
+  inPlayArr[1].dealerUp = true;
+  inPlayArr[2].playerHand = true;
+  inPlayArr[3].playerHand = true;
+  for(var i = 0; i < inPlayArr.length; i++){
+    inPlayArr[i].inPlay = true;
+    inPlayArr[i].shoe = false;
+  }
+}
 
-console.log(inPlay);
+////////////////////////////////////////////////////////
+//Create Dealt Hands////////////////////////////////////
+
+var createDealtElements = function(){
+  $('.shoeCard').eq(0).remove()
+  $('.shoeCard').eq(0).remove()
+  $('.shoeCard').eq(0).remove()
+  $('.shoeCard').eq(0).remove()
+
+  for(var i = 0; i < inPlayArr.length; i++){
+    if(inPlayArr[i].dealerDown === true){
+      var $card  = $('<div>');
+      $card.addClass('dealerDown');
+      $dealerDown.append($card);
+    }else if(inPlayArr[i].dealerUp === true){
+      var $card = $('<div>');
+      $card.addClass('dealerUp');
+      $dealerUp.append($card);
+    }else if(inPlayArr[i].playerHand === true){
+      var $card = $('<div>');
+      $card.addClass('playerHand');
+      $playerHand.append($card);
+    }
+  }
+}
+
+/////////////////////////////////////////////////////
+//Deal function//////////////////////////////////////
+
+var dealEm = function(){
+  createDealtObjects();
+  createDealtElements();
+}
+
+dealEm();
+
+
 
 
 
