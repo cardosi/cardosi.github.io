@@ -1,7 +1,41 @@
 //Event Handlers///////////////////////////////////////////////
 var bet = function(){
-  console.log("works");
   $bet.append($(this));
+  if($(this).hasClass('chip5')){
+    var toggle = true;
+    for(var i = 0; i < bankArr.length; i++){
+      if(bankArr[i].denom === 5 && toggle){
+        betArr.push(bankArr.splice(i, 1)[0]);
+        toggle = false;
+      }
+    }
+  }else if($(this).hasClass('chip10')){
+    var toggle = true;
+    for(var i = 0; i < bankArr.length; i++){
+      if(bankArr[i].denom === 10 && toggle){
+        betArr.push(bankArr.splice(i, 1)[0]);
+        toggle = false;
+      }
+    }
+  }else if($(this).hasClass('chip25')){
+    var toggle = true;
+    for(var i = 0; i < bankArr.length; i++){
+      if(bankArr[i].denom === 25 && toggle){
+        betArr.push(bankArr.splice(i, 1)[0]);
+        toggle = false;
+      }
+    }
+  }else if($(this).hasClass('chip100')){
+    var toggle = true;
+    for(var i = 0; i < bankArr.length; i++){
+      if(bankArr[i].denom === 100 && toggle){
+        betArr.push(bankArr.splice(i, 1)[0]);
+        toggle = false;
+      }
+    }
+  }
+  console.log(bankArr);
+  console.log(betArr);
 };
 
 ///////////////////////////////////////////////////////////////
@@ -276,7 +310,7 @@ var createBank = function(){
     $chip.on('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
-    $chip.addClass('100Chip');
+    $chip.addClass('chip100');
     $chip.text('100');
     $bank100.append($chip);
   }
@@ -287,7 +321,7 @@ var createBank = function(){
     $chip.on('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
-    $chip.addClass('25Chip');
+    $chip.addClass('chip25');
     $chip.text('25');
     $bank25.append($chip);
   }
@@ -298,7 +332,7 @@ var createBank = function(){
     $chip.on('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
-    $chip.addClass('10Chip');
+    $chip.addClass('chip10');
     $chip.text('10');
     $bank10.append($chip);
   }
@@ -309,7 +343,7 @@ var createBank = function(){
     $chip.on('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
-    $chip.addClass('5Chip');
+    $chip.addClass('chip5');
     $chip.text('5');
     $bank5.append($chip);
   }
