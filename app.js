@@ -38,6 +38,15 @@ var bet = function(){
   console.log(betArr);
 };
 
+var hideMessage = function(){
+  $message.css('visibility', 'hidden');
+}
+
+var showMessage = function(text){
+  $message.text(text);
+  $message.css('visibility', 'visible');
+}
+
 ///////////////////////////////////////////////////////////////
 //Card Constructor////////////////////////////////////////////
 var Card = function(uid){
@@ -69,6 +78,7 @@ var $dealImg = $('#dealImg');
 var $hitImg = $('#hitImg');
 var $standImg = $('#standImg');
 var $dealerDown = $('#dealerDown');
+var $message = $('#message');
 
 //Create 52 objects/////////////////////////////////
 
@@ -252,9 +262,13 @@ var addPlayerSuitFace = function(){
 //Deal function//////////////////////////////////////
 
 var dealEm = function(){
-  console.log("dealt");
+  if(shoeArr[0] === undefined){
+    //do nothing
+  } else {
   createDealtObjects();
   createDealtElements();
+  checkBJ();
+}
 }
 
 ////////////////////////////////////////////////////
@@ -291,19 +305,46 @@ var dealerHitElements = function(){
 var hitPlayer = function(){
   playerHitObjects();
   playerHitElements();
+  checkBJ();
+  playerBust();
 }
 
 var hitDealer = function(){
   dealerHitObjects();
   dealerHitElements();
+  checkBJ();
+  dealerBust();
+  checkPush();
+  dealerWin();
 }
 //////////////////////////////////////////////////////////
 // Stand//////////////////////////////////////////////////
 
 var stand = function(){
-  console.log('stand');
   $dealer_down.children().attr('id', '');
-};
+  if(getScore(dealerHandArr) > getScore(playerHandArr)){
+    showMessage("Dealer Wins");
+  } else if(getScore(dealerHandArr) < 17){
+    hitDealer();
+    if(getScore(dealerHandArr) < 17){
+      hitDealer();
+      if(getScore(dealerHandArr) < 17){
+        hitDealer();
+        if(getScore(dealerHandArr) < 17){
+          hitDealer();
+          if(getScore(dealerHandArr) < 17){
+            hitDealer();
+            if(getScore(dealerHandArr) < 17){
+              hitDealer();
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
 
 
 /////////////////////////////////////////////////////////////
@@ -315,6 +356,39 @@ var getScore = function(arr){
     score += arr[i].pointVal;
   }
   return score;
+}
+var checkBJ = function(){
+  if(getScore(playerHandArr) === 21){
+    $dealer_down.children().attr('id', '');
+    showMessage("BlackJack!!!");
+  }else if(getScore(dealerHandArr) === 21){
+    $dealer_down.children().attr('id', '');
+    showMessage("Dealer BlackJack");
+  }
+}
+
+var dealerBust = function(){
+  if(getScore(dealerHandArr) > 21){
+    showMessage("Dealer Busts");
+  }
+}
+
+var playerBust = function(){
+  if(getScore(playerHandArr) > 21){
+    showMessage("Bust");
+  }
+}
+
+var dealerWin = function(){
+  if(getScore(dealerHandArr) < 21 && getScore(dealerHandArr) > getScore(playerHandArr)){
+    showMessage("Dealer Wins");
+  }
+}
+
+var checkPush = function(){
+  if(getScore(dealerHandArr) > 17 && getScore(dealerHandArr) === getScore(playerHandArr)){
+    showMessage("Push");
+  }
 }
 
 
@@ -388,6 +462,7 @@ $deckImg.on('click', populateDeckShoe);
 $dealImg.on('click', dealEm);
 $hitImg.on('click', hitPlayer);
 $standImg.on('click', stand);
+$message.on('click', hideMessage);
 
 
 

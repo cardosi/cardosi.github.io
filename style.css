@@ -5,6 +5,18 @@ div {
   display: inline-block;
 }
 
+#message {
+  height: 300px;
+  width: 100%;
+  position: absolute;
+  top: 200px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2.5em;
+  text-align: center;
+  background-color: white;
+  visibility: visible;
+}
+
 
 /*Title/////////////////////////////////////////////////*/
 #outerMainHead {
