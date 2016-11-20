@@ -5,24 +5,40 @@ div {
   display: inline-block;
 }
 
-h1 {
-  text-align: right;
-  font-family: 'Londrina Sketch', cursive;
-  font-size: 5em;
+
+/*Title/////////////////////////////////////////////////*/
+#outerMainHead {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  width: 310px;
+  height: 80px;
 }
 
-h2 {
+#main_head {
+  position: relative;
   font-family: 'Londrina Sketch', cursive;
-  font-size: 2.5em;
+  font-size: 5em;
+  width: 310px;
+  height: 80px;
+  display: block;
 }
 
 /*SHOE ELEMENTS////////////////////////////////////////*/
 
-#shoeBox {
-  position: relative;
-  top: -110px;
+#outerShoeBox {
+  position: absolute;
+  left: 10px;
   width: 380px;
   height: 170px;
+}
+
+#shoeBox {
+  position: relative;
+  /*top: -110px;*/
+  width: 380px;
+  height: 170px;
+  display: block;
 }
 
 #shoe {
@@ -66,18 +82,29 @@ h2 {
 
 /*/////////////////////////////////////////////////////////*/
 /*Dealer Elements//////////////////////////////////////////*/
+#outerDealerBox {
+  position: absolute;
+  top: 120px;
+  right: 40px;
+  width: 410px;
+  height: 280px;
+}
+
 #dealerBox {
   position: relative;
   width: 410px;
   height: 280px;
-  top: -80px;
-  right: -110px;
+  /*top: -80px;
+  right: -110px;*/
+  display: block;
 }
 
 #dealer_head {
   position: absolute;
   top: 5px;
   right: 70px;
+  height: 50px;
+  width: 100px;
   font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
 }
@@ -93,16 +120,27 @@ h2 {
 }
 /*/////////////////////////////////////////////////////////*/
 /*Player Elements//////////////////////////////////////////*/
+#outerPlayerBox {
+  position: absolute;
+  top: 410px;
+  left: 20px;
+  height: 280px;
+  width: 410px;
+}
+
 #playerBox {
   position: relative;
   height: 280px;
   width: 410px;
+  display: block;
 }
 
 #player_head {
   position: absolute;
   top: 5px;
   left: 50px;
+  height: 50px;
+  width: 100px;
   font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
 }
@@ -118,16 +156,27 @@ h2 {
 }
 /*/////////////////////////////////////////////////////////*/
 /*Bet Elements/////////////////////////////////////////////*/
+#outerBetBox {
+  position: absolute;
+  top: 200px;
+  left: 90px;
+  width: 300px;
+  height: 180px;
+}
+
 #betBox {
   position: relative;
   width: 300px;
   height: 180px;
+  display: block;
 }
 
 #bet_head {
   position: absolute;
   top: 5px;
   right: 30px;
+  height: 50px;
+  width: 60px;
   font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
 }
@@ -140,47 +189,58 @@ h2 {
 }
 /*/////////////////////////////////////////////////////////*/
 /*Bank Elements////////////////////////////////////////////*/
+#outerBankBox {
+  position: absolute;
+  top: 450px;
+  right: 40px;
+  height: 280px;
+  width: 370px;
+}
+
 #bankBox {
   position: relative;
-  height: 180px;
-  width: 650px;
+  height: inherit;
+  width: inherit;
+  display: block;
 }
 
 #bank_head {
   position: absolute;
   top: 5px;
-  left: 40px;
+  left: 20px;
+  height: 50px;
+  width: 80px;
   font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
 }
 
 #bank100 {
   position: absolute;
-  bottom: 5px;
-  left: 5px;
+  top: 5px;
+  right: 130px;
   height: 120px;
   width: 120px;
 }
 #bank25 {
   position: absolute;
-  bottom: 5px;
-  left: 130px;
+  top: 5px;
+  right: 5px;
   height: 120px;
   width: 120px;
 }
 #bank10 {
   position: absolute;
   bottom: 5px;
-  left: 255px;
+  left: 5px;
   height: 120px;
-  width: 200px;
+  width: 180px;
 }
 #bank5 {
   position: absolute;
   bottom: 5px;
-  left: 460px;
+  right: 5px;
   height: 120px;
-  width: 200px;
+  width: 180px;
 }
 
 .chip {
@@ -188,7 +248,8 @@ h2 {
   height: 30px;
   width: 30px;
 }
-
+/*/////////////////////////////////////////////////////////*/
+/*Card Elements////////////////////////////////////////////*/
 .ace.clubs {
   background-image: url('images/PNG-cards-1.3/ace_of_clubs.png');
   background-size: 100%;
