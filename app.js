@@ -53,7 +53,7 @@ var Card = function(uid){
 var shoeArr = [];
 var $body = $('body');
 var $shoe = $('#shoe');
-var $dealerDown = $('#dealer_down');
+var $dealer_down = $('#dealer_down');
 var $dealerUp = $('#dealer_up');
 var $playerHand = $('#player_hand');
 var $bank = $('#bank');
@@ -62,93 +62,122 @@ var $bank25 = $('#bank25');
 var $bank10 = $('#bank10');
 var $bank5 = $('#bank5');
 var $bet = $('#bet');
+var $bigShoeImg = $('#bigShoeImg');
+var $shoeImg = $('#shoeImg');
+var $deckImg = $('#deckImg');
+var $dealImg = $('#dealImg');
+var $hitImg = $('#hitImg');
+var $standImg = $('#standImg');
+var $dealerDown = $('#dealerDown');
 
 //Create 52 objects/////////////////////////////////
 
-for(var i = 0; i < 312; i++){
-  var cardObj = new Card(i)
-  shoeArr.push(cardObj);
-};
+var fillShoeArr = function(cards){
+  for(var i = 0; i < cards; i++){
+    var cardObj = new Card(i)
+    shoeArr.push(cardObj);
+  };
+}
 
 ////////////////////////////////////////////////
 //Assign Suits//////////////////////////////////
-for(var i = 0; i < shoeArr.length; i+=4){
-  shoeArr[i].suit = 'spades';
+
+var populateShoeArr = function(){
+  for(var i = 0; i < shoeArr.length; i+=4){
+    shoeArr[i].suit = 'spades';
+  }
+  for(var i = 1; i < shoeArr.length; i+=4){
+    shoeArr[i].suit = 'diamonds';
+  }
+  for(var i = 2; i < shoeArr.length; i+=4){
+    shoeArr[i].suit = 'clubs';
+  }
+  for(var i = 3; i < shoeArr.length; i+=4){
+    shoeArr[i].suit = 'hearts';
+  }
+  for(var i = 0; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'ace';
+    shoeArr[i].pointVal = 11;
+  }
+  for(var i = 1; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'two';
+    shoeArr[i].pointVal = 2;
+  }
+  for(var i = 2; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'three';
+    shoeArr[i].pointVal = 3;
+  }
+  for(var i = 3; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'four';
+    shoeArr[i].pointVal = 4;
+  }
+  for(var i = 4; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'five';
+    shoeArr[i].pointVal = 5;
+  }
+  for(var i = 5; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'six';
+    shoeArr[i].pointVal = 6;
+  }
+  for(var i = 6; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'seven';
+    shoeArr[i].pointVal = 7;
+  }
+  for(var i = 7; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'eight';
+    shoeArr[i].pointVal = 8;
+  }
+  for(var i = 8; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'nine';
+    shoeArr[i].pointVal = 9;
+  }
+  for(var i = 9; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'ten';
+    shoeArr[i].pointVal = 10;
+  }
+  for(var i = 10; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'jack';
+    shoeArr[i].pointVal = 10;
+  }
+  for(var i = 11; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'queen';
+    shoeArr[i].pointVal = 10;
+  }
+  for(var i = 12; i < shoeArr.length; i+=13){
+    shoeArr[i].faceVal = 'king';
+    shoeArr[i].pointVal = 10;
+  }
 }
-for(var i = 1; i < shoeArr.length; i+=4){
-  shoeArr[i].suit = 'diamonds';
-}
-for(var i = 2; i < shoeArr.length; i+=4){
-  shoeArr[i].suit = 'clubs';
-}
-for(var i = 3; i < shoeArr.length; i+=4){
-  shoeArr[i].suit = 'hearts';
-}
-///////////////////////////////////////////////
-//Assign Val///////////////////////////////////
-for(var i = 0; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'ace';
-  shoeArr[i].pointVal = 11;
-}
-for(var i = 1; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'two';
-  shoeArr[i].pointVal = 2;
-}
-for(var i = 2; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'three';
-  shoeArr[i].pointVal = 3;
-}
-for(var i = 3; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'four';
-  shoeArr[i].pointVal = 4;
-}
-for(var i = 4; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'five';
-  shoeArr[i].pointVal = 5;
-}
-for(var i = 5; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'six';
-  shoeArr[i].pointVal = 6;
-}
-for(var i = 6; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'seven';
-  shoeArr[i].pointVal = 7;
-}
-for(var i = 7; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'eight';
-  shoeArr[i].pointVal = 8;
-}
-for(var i = 8; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'nine';
-  shoeArr[i].pointVal = 9;
-}
-for(var i = 9; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'ten';
-  shoeArr[i].pointVal = 10;
-}
-for(var i = 10; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'jack';
-  shoeArr[i].pointVal = 10;
-}
-for(var i = 11; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'queen';
-  shoeArr[i].pointVal = 10;
-}
-for(var i = 12; i < shoeArr.length; i+=13){
-  shoeArr[i].faceVal = 'king';
-  shoeArr[i].pointVal = 10;
-}
+
 /////////////////////////////////////////////
 //Populate Shoe//////////////////////////////
-var populateShoe = function(){
+var populateBigShoe = function(){
+  fillShoeArr(416);
+  populateShoeArr();
   $(shoeArr).each(function(){
     var $card = $('<div>');
     $card.addClass('shoeCard');
     $shoe.append($card);
   })
 }
-populateShoe();
-
+var populateSmallShoe = function(){
+  fillShoeArr(312);
+  populateShoeArr();
+  $(shoeArr).each(function(){
+    var $card = $('<div>');
+    $card.addClass('shoeCard');
+    $shoe.append($card);
+  })
+}
+var populateDeckShoe = function(){
+  fillShoeArr(52);
+  populateShoeArr();
+  $(shoeArr).each(function(){
+    var $card = $('<div>');
+    $card.addClass('shoeCard');
+    $shoe.append($card);
+  })
+}
 
 /////////////////////////////////////////////
 //Create Dealt Objects///////////////////////
@@ -198,9 +227,9 @@ var addPlayerSuitFace = function(){
   for(var i = 0; i < dealerHandArr.length; i++){
     if(dealerHandArr[i].dealerDown === true){
       var $dealerCard  = $('<div>');
-      $dealerCard.addClass('dealerDown');
+      $dealerCard.attr('id', 'dealerDown');
       addDealerSuitFace();
-      $dealerDown.append($dealerCard);
+      $dealer_down.append($dealerCard);
     }else if(dealerHandArr[i].dealerUp === true){
       var $dealerCard = $('<div>');
       $dealerCard.addClass('dealerUp');
@@ -223,11 +252,10 @@ var addPlayerSuitFace = function(){
 //Deal function//////////////////////////////////////
 
 var dealEm = function(){
+  console.log("dealt");
   createDealtObjects();
   createDealtElements();
 }
-
-dealEm();
 
 ////////////////////////////////////////////////////
 //Hit///////////////////////////////////////////////
@@ -269,15 +297,17 @@ var hitDealer = function(){
   dealerHitObjects();
   dealerHitElements();
 }
+//////////////////////////////////////////////////////////
+// Stand//////////////////////////////////////////////////
 
-hitPlayer();
-hitDealer();
+var stand = function(){
+  console.log('stand');
+  $dealer_down.children().attr('id', '');
+};
 
-console.log(dealerHandArr);
-console.log(playerHandArr);
 
-//////////////////////////////////////////////////////////////
-//Conditions & Behaviors//////////////////////////////////////
+/////////////////////////////////////////////////////////////
+//Conditions & Behaviors/////////////////////////////////////
 
 var getScore = function(arr){
   var score = 0
@@ -286,12 +316,10 @@ var getScore = function(arr){
   }
   return score;
 }
-console.log(getScore(playerHandArr));
-console.log(getScore(dealerHandArr));
 
 
-//////////////////////////////////////////////////
-//Bank////////////////////////////////////////////
+/////////////////////////////////////////////////////
+//Bank & Bet/////////////////////////////////////////
 
 var bankArr = [];
 var betArr = [];
@@ -350,12 +378,16 @@ var createBank = function(){
 }
 
 createBank();
-console.log(bankArr);
 
-//////////////////////////////////////////////////
-//Bet/////////////////////////////////////////////
+///////////////////////////////////////////////////////
+//Event Listeners//////////////////////////////////////
 
-
+$bigShoeImg.on('click', populateBigShoe);
+$shoeImg.on('click', populateSmallShoe);
+$deckImg.on('click', populateDeckShoe);
+$dealImg.on('click', dealEm);
+$hitImg.on('click', hitPlayer);
+$standImg.on('click', stand);
 
 
 
