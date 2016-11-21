@@ -237,11 +237,25 @@ div {
   width: 370px;
 }
 
+#atmDiv {
+  position: relative;
+  height: inherit;
+  width: inherit;
+  visibility: visible;
+}
+
+#atmImg {
+  position: absolute;
+  top: 40px;
+  left: 80px;
+}
+
 #bankBox {
   position: relative;
   height: inherit;
   width: inherit;
   display: block;
+  visibility: hidden;
 }
 
 #bank_head {

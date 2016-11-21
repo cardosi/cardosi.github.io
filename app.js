@@ -1,6 +1,58 @@
 //Event Handlers///////////////////////////////////////////////
+var betLock = false;
+
+var unbet = function(){
+  if(betLock){
+    showMessage("Don't touch the chips, we're in the middle of a hand!");
+  } else if(betLock === false){
+    $(this).unbind('click', unbet);
+    $(this).bind('click', bet);
+    if($(this).hasClass('chip5')){
+      $bank5.append($(this));
+      var toggle = true;
+      for(var i = 0; i < betArr.length; i++){
+        if(betArr[i].denom === 5 && toggle){
+          bankArr.push(betArr.splice(i, 1)[0]);
+          toggle = false;
+        }
+      }
+    }else if($(this).hasClass('chip10')){
+      $bank10.append($(this));
+      var toggle = true;
+      for(var i = 0; i < betArr.length; i++){
+        if(betArr[i].denom === 10 && toggle){
+          bankArr.push(betArr.splice(i, 1)[0]);
+          toggle = false;
+        }
+      }
+    }else if($(this).hasClass('chip25')){
+      $bank25.append($(this));
+      var toggle = true;
+      for(var i = 0; i < betArr.length; i++){
+        if(betArr[i].denom === 25 && toggle){
+          bankArr.push(betArr.splice(i, 1)[0]);
+          toggle = false;
+        }
+      }
+    }else if($(this).hasClass('chip100')){
+      $bank100.append($(this));
+      var toggle = true;
+      for(var i = 0; i < betArr.length; i++){
+        if(betArr[i].denom === 100 && toggle){
+          bankArr.push(betArr.splice(i, 1)[0]);
+          toggle = false;
+        }
+      }
+    }
+  }
+  console.log(bankArr);
+  console.log(betArr);
+};
+
 var bet = function(){
   $bet.append($(this));
+  $(this).unbind('click', bet);
+  $(this).bind('click', unbet);
   if($(this).hasClass('chip5')){
     var toggle = true;
     for(var i = 0; i < bankArr.length; i++){
@@ -47,6 +99,12 @@ var showMessage = function(text){
   $message.css('visibility', 'visible');
 }
 
+var getCash = function(){
+  $atmDiv.remove();
+  $bankBox.css('visibility', 'visible');
+  createBank();
+}
+
 ///////////////////////////////////////////////////////////////
 //Card Constructor////////////////////////////////////////////
 var Card = function(uid){
@@ -79,6 +137,10 @@ var $hitImg = $('#hitImg');
 var $standImg = $('#standImg');
 var $dealerDown = $('#dealerDown');
 var $message = $('#message');
+var $atmImg = $('#atmImg');
+var $atmDiv = $('#atmDiv');
+var $bankBox = $('#bankBox');
+
 
 //Create 52 objects/////////////////////////////////
 
@@ -262,12 +324,18 @@ var addPlayerSuitFace = function(){
 //Deal function//////////////////////////////////////
 
 var dealEm = function(){
-  if(shoeArr[0] === undefined){
-    //do nothing
+  if(shoeArr[0] === undefined && betArr[0] === undefined){
+    showMessage("Pick a Shoe & Place a Bet")
+  } else if(shoeArr[0] === undefined){
+    showMessage("Pick a shoe")
+  } else if(betArr[0] === undefined){
+    showMessage("Place a bet first")
   } else {
-  createDealtObjects();
-  createDealtElements();
-  checkBJ();
+    betLock = true;
+    clearHands();
+    createDealtObjects();
+    createDealtElements();
+    checkBJ();
 }
 }
 
@@ -316,12 +384,14 @@ var hitDealer = function(){
   dealerBust();
   checkPush();
   dealerWin();
+  checkPlayerWin();
 }
 //////////////////////////////////////////////////////////
 // Stand//////////////////////////////////////////////////
 
 var stand = function(){
   $dealer_down.children().attr('id', '');
+  checkPush();
   if(getScore(dealerHandArr) > getScore(playerHandArr)){
     showMessage("Dealer Wins");
   } else if(getScore(dealerHandArr) < 17){
@@ -361,33 +431,52 @@ var checkBJ = function(){
   if(getScore(playerHandArr) === 21){
     $dealer_down.children().attr('id', '');
     showMessage("BlackJack!!!");
+    betWon();
+    betLock = false;
   }else if(getScore(dealerHandArr) === 21){
     $dealer_down.children().attr('id', '');
     showMessage("Dealer BlackJack");
+    betLost();
+    betLock = false;
   }
 }
 
 var dealerBust = function(){
   if(getScore(dealerHandArr) > 21){
     showMessage("Dealer Busts");
+    betWon();
+    betLock = false;
   }
 }
 
 var playerBust = function(){
   if(getScore(playerHandArr) > 21){
     showMessage("Bust");
+    betLost();
+    betLock = false;
   }
 }
 
 var dealerWin = function(){
   if(getScore(dealerHandArr) < 21 && getScore(dealerHandArr) > getScore(playerHandArr)){
     showMessage("Dealer Wins");
+    betLost();
+    betLock = false;
   }
 }
 
 var checkPush = function(){
-  if(getScore(dealerHandArr) > 17 && getScore(dealerHandArr) === getScore(playerHandArr)){
+  if(getScore(dealerHandArr) >= 17 && getScore(dealerHandArr) === getScore(playerHandArr)){
     showMessage("Push");
+    betLock = false;
+  }
+}
+
+var checkPlayerWin = function(){
+  if(getScore(dealerHandArr) >= 17 && getScore(dealerHandArr) < getScore(playerHandArr)){
+    showMessage("You Won!!!");
+    betWon();
+    betLock = false;
   }
 }
 
@@ -409,7 +498,7 @@ var createBank = function(){
     var chip100 = new Chip(100);
     bankArr.push(chip100);
     var $chip = $('<div>');
-    $chip.on('click', bet);
+    $chip.bind('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
     $chip.addClass('chip100');
@@ -420,7 +509,7 @@ var createBank = function(){
     var chip25 = new Chip(25);
     bankArr.push(chip25);
     var $chip = $('<div>');
-    $chip.on('click', bet);
+    $chip.bind('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
     $chip.addClass('chip25');
@@ -431,7 +520,7 @@ var createBank = function(){
     var chip10 = new Chip(10);
     bankArr.push(chip10);
     var $chip = $('<div>');
-    $chip.on('click', bet);
+    $chip.bind('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
     $chip.addClass('chip10');
@@ -442,7 +531,7 @@ var createBank = function(){
     var chip5 = new Chip(5);
     bankArr.push(chip5);
     var $chip = $('<div>');
-    $chip.on('click', bet);
+    $chip.bind('click', bet);
     $chip.addClass('chip');
     $chip.addClass('bankChip');
     $chip.addClass('chip5');
@@ -450,8 +539,116 @@ var createBank = function(){
     $bank5.append($chip);
   }
 }
+///////////////////////////////////////////////////////
+//Bet Win & Loss///////////////////////////////////////
 
-createBank();
+var betWon = function(){
+  bankArr = bankArr.concat(betArr)
+  for(var i = bankArr.length-betArr.length; i < bankArr.length; i++){
+    if(bankArr[i].denom === 5){
+      var $chip = $('<div>');
+      $chip.on('click', bet);
+      $chip.addClass('chip');
+      $chip.addClass('bankChip');
+      $chip.addClass('chip5');
+      $chip.text('5');
+      $bank5.append($chip);
+    }else if(bankArr[i].denom === 10){
+      var $chip = $('<div>');
+      $chip.on('click', bet);
+      $chip.addClass('chip');
+      $chip.addClass('bankChip');
+      $chip.addClass('chip10');
+      $chip.text('10');
+      $bank10.append($chip);
+    } else if(bankArr[i].denom === 25){
+      var $chip = $('<div>');
+      $chip.on('click', bet);
+      $chip.addClass('chip');
+      $chip.addClass('bankChip');
+      $chip.addClass('chip25');
+      $chip.text('25');
+      $bank25.append($chip);
+    } else if(bankArr[i].denom === 100){
+      var $chip = $('<div>');
+      $chip.on('click', bet);
+      $chip.addClass('chip');
+      $chip.addClass('bankChip');
+      $chip.addClass('chip100');
+      $chip.text('100');
+      $bank100.append($chip);
+    }
+  }
+}
+
+var betLost = function(){
+  betArr = [];
+  $bet.empty();
+}
+
+// var betLost = function(){
+//   for(var i = 0; i < betArr.length; i++){
+//     for(var j = 0; j < bankArr.lenght; i++){
+//       if(betArr[i].denom = bankArr[j].denom){
+//         bankArr.splice(j, 1);
+//         break;
+//       }else{
+//         betArr.splice(i, 1);
+//         break;
+//       }
+//     }
+//   }
+//   $bank100.empty();
+//   $bank25.empty();
+//   $bank10.empty();
+//   $bank5.empty();
+//   $bet.empty();
+//   for(var i = 0; i < bankArr.length; i++){
+//     if(bankArr[i].denom === 5){
+//       var $chip = $('<div>');
+//       $chip.on('click', bet);
+//       $chip.addClass('chip');
+//       $chip.addClass('bankChip');
+//       $chip.addClass('chip5');
+//       $chip.text('5');
+//       $bank5.append($chip);
+//     }else if(bankArr[i].denom === 10){
+//       var $chip = $('<div>');
+//       $chip.on('click', bet);
+//       $chip.addClass('chip');
+//       $chip.addClass('bankChip');
+//       $chip.addClass('chip10');
+//       $chip.text('10');
+//       $bank10.append($chip);
+//     } else if(bankArr[i].denom === 25){
+//       var $chip = $('<div>');
+//       $chip.on('click', bet);
+//       $chip.addClass('chip');
+//       $chip.addClass('bankChip');
+//       $chip.addClass('chip25');
+//       $chip.text('25');
+//       $bank25.append($chip);
+//     } else if(bankArr[i].denom === 100){
+//       var $chip = $('<div>');
+//       $chip.on('click', bet);
+//       $chip.addClass('chip');
+//       $chip.addClass('bankChip');
+//       $chip.addClass('chip100');
+//       $chip.text('100');
+//       $bank100.append($chip);
+//     }
+//   }
+// }
+///////////////////////////////////////////////////////
+//Clears & Resets//////////////////////////////////////
+var clearHands = function(){
+  dealerHandArr = [];
+  playerHandArr = [];
+  $dealer_down.children().attr('id', 'dealerDown');
+  $dealer_down.empty();
+  $dealerUp.empty();
+  $playerHand.empty();
+}
 
 ///////////////////////////////////////////////////////
 //Event Listeners//////////////////////////////////////
@@ -463,6 +660,7 @@ $dealImg.on('click', dealEm);
 $hitImg.on('click', hitPlayer);
 $standImg.on('click', stand);
 $message.on('click', hideMessage);
+$atmImg.on('click', getCash);
 
 
 

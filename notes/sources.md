@@ -14,3 +14,5 @@ Hit image:
 - https://thenounproject.com/search/?q=hit&i=554897
 Stand Image:
 - https://thenounproject.com/search/?q=stand&i=12424
+ATM Image:
+- https://thenounproject.com/search/?q=atm&i=290535
