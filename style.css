@@ -214,11 +214,21 @@ div {
 #bet_head {
   position: absolute;
   top: 5px;
-  right: 30px;
+  right: 150px;
   height: 50px;
   width: 60px;
   font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
+}
+
+#betNum {
+  position: absolute;
+  height: 50px;
+  width: 120px;
+  top: 5px;
+  right: 15px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2em;
 }
 
 #bet {
@@ -266,6 +276,16 @@ div {
   width: 80px;
   font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
+}
+
+#bankNum {
+  position: absolute;
+  top: 65px;
+  left: 10px;
+  width: 100px;
+  height: 50px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2em
 }
 
 #bank100 {

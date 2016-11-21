@@ -47,47 +47,53 @@ var unbet = function(){
   }
   console.log(bankArr);
   console.log(betArr);
+  updateNum();
 };
 
 var bet = function(){
-  $bet.append($(this));
-  $(this).unbind('click', bet);
-  $(this).bind('click', unbet);
-  if($(this).hasClass('chip5')){
-    var toggle = true;
-    for(var i = 0; i < bankArr.length; i++){
-      if(bankArr[i].denom === 5 && toggle){
-        betArr.push(bankArr.splice(i, 1)[0]);
-        toggle = false;
+  if(betLock){
+    showMessage("Don't touch the chips, we're in the middle of a hand!");
+  } else if(betLock === false){
+    $bet.append($(this));
+    $(this).unbind('click', bet);
+    $(this).bind('click', unbet);
+    if($(this).hasClass('chip5')){
+      var toggle = true;
+      for(var i = 0; i < bankArr.length; i++){
+        if(bankArr[i].denom === 5 && toggle){
+          betArr.push(bankArr.splice(i, 1)[0]);
+          toggle = false;
+        }
+      }
+    }else if($(this).hasClass('chip10')){
+      var toggle = true;
+      for(var i = 0; i < bankArr.length; i++){
+        if(bankArr[i].denom === 10 && toggle){
+          betArr.push(bankArr.splice(i, 1)[0]);
+          toggle = false;
+        }
+      }
+    }else if($(this).hasClass('chip25')){
+      var toggle = true;
+      for(var i = 0; i < bankArr.length; i++){
+        if(bankArr[i].denom === 25 && toggle){
+          betArr.push(bankArr.splice(i, 1)[0]);
+          toggle = false;
+        }
+      }
+    }else if($(this).hasClass('chip100')){
+      var toggle = true;
+      for(var i = 0; i < bankArr.length; i++){
+        if(bankArr[i].denom === 100 && toggle){
+          betArr.push(bankArr.splice(i, 1)[0]);
+          toggle = false;
+        }
       }
     }
-  }else if($(this).hasClass('chip10')){
-    var toggle = true;
-    for(var i = 0; i < bankArr.length; i++){
-      if(bankArr[i].denom === 10 && toggle){
-        betArr.push(bankArr.splice(i, 1)[0]);
-        toggle = false;
-      }
-    }
-  }else if($(this).hasClass('chip25')){
-    var toggle = true;
-    for(var i = 0; i < bankArr.length; i++){
-      if(bankArr[i].denom === 25 && toggle){
-        betArr.push(bankArr.splice(i, 1)[0]);
-        toggle = false;
-      }
-    }
-  }else if($(this).hasClass('chip100')){
-    var toggle = true;
-    for(var i = 0; i < bankArr.length; i++){
-      if(bankArr[i].denom === 100 && toggle){
-        betArr.push(bankArr.splice(i, 1)[0]);
-        toggle = false;
-      }
-    }
+    console.log(bankArr);
+    console.log(betArr);
+    updateNum();
   }
-  console.log(bankArr);
-  console.log(betArr);
 };
 
 var hideMessage = function(){
@@ -140,6 +146,8 @@ var $message = $('#message');
 var $atmImg = $('#atmImg');
 var $atmDiv = $('#atmDiv');
 var $bankBox = $('#bankBox');
+var $betNum = $('#betNum');
+var $bankNum = $('#bankNum');
 
 
 //Create 52 objects/////////////////////////////////
@@ -336,6 +344,7 @@ var dealEm = function(){
     createDealtObjects();
     createDealtElements();
     checkBJ();
+    updateNum();
 }
 }
 
@@ -392,6 +401,7 @@ var hitDealer = function(){
 var stand = function(){
   $dealer_down.children().attr('id', '');
   checkPush();
+  checkPlayerWin();
   if(getScore(dealerHandArr) > getScore(playerHandArr)){
     showMessage("Dealer Wins");
   } else if(getScore(dealerHandArr) < 17){
@@ -427,17 +437,32 @@ var getScore = function(arr){
   }
   return score;
 }
+var getTotal = function(arr){
+  var total = 0
+  for(var i = 0; i < arr.length; i++){
+    total += arr[i].denom;
+  }
+  return total;
+}
+var updateNum = function(){
+  $bankNum.text("$" + getTotal(bankArr));
+  $betNum.text("$" + getTotal(betArr));
+}
+
+
 var checkBJ = function(){
   if(getScore(playerHandArr) === 21){
     $dealer_down.children().attr('id', '');
     showMessage("BlackJack!!!");
     betWon();
     betLock = false;
+    updateNum();
   }else if(getScore(dealerHandArr) === 21){
     $dealer_down.children().attr('id', '');
     showMessage("Dealer BlackJack");
     betLost();
     betLock = false;
+    updateNum();
   }
 }
 
@@ -446,6 +471,7 @@ var dealerBust = function(){
     showMessage("Dealer Busts");
     betWon();
     betLock = false;
+    updateNum();
   }
 }
 
@@ -454,6 +480,7 @@ var playerBust = function(){
     showMessage("Bust");
     betLost();
     betLock = false;
+    updateNum();
   }
 }
 
@@ -462,6 +489,7 @@ var dealerWin = function(){
     showMessage("Dealer Wins");
     betLost();
     betLock = false;
+    updateNum();
   }
 }
 
@@ -469,6 +497,7 @@ var checkPush = function(){
   if(getScore(dealerHandArr) >= 17 && getScore(dealerHandArr) === getScore(playerHandArr)){
     showMessage("Push");
     betLock = false;
+    updateNum()
   }
 }
 
@@ -477,6 +506,7 @@ var checkPlayerWin = function(){
     showMessage("You Won!!!");
     betWon();
     betLock = false;
+    updateNum();
   }
 }
 
