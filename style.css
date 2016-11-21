@@ -122,10 +122,20 @@ div {
 #dealer_head {
   position: absolute;
   top: 5px;
-  right: 70px;
+  right: 150px;
   height: 50px;
   width: 100px;
   font-family: 'Londrina Sketch', cursive;
+  font-size: 2.5em;
+}
+
+#dealerPts {
+  position: absolute;
+  top: 5px;
+  right: 45px;
+  height: 50px;
+  width: 90px;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 2.5em;
 }
 
@@ -164,22 +174,33 @@ div {
 #player_head {
   position: absolute;
   top: 5px;
-  left: 50px;
+  right: 120px;
   height: 50px;
   width: 100px;
   font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
 }
+
+#playerPts{
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  height: 50px;
+  width: 90px;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 2.5em;
+}
+
 #hitImg {
   position: absolute;
-  right: 130px;
+  left: 15px;
   height: 85px;
   width: auto;
 }
 
 #standImg {
   position: absolute;
-  right: 50px;
+  left: 100px;
   top: 0px;
   height: 65px;
   width: auto;

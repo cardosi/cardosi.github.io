@@ -1,4 +1,6 @@
-//Event Handlers///////////////////////////////////////////////
+$(function(){
+
+//Event Handlers/////////////////////////////////////////////
 var betLock = false;
 
 var unbet = function(){
@@ -148,6 +150,8 @@ var $atmDiv = $('#atmDiv');
 var $bankBox = $('#bankBox');
 var $betNum = $('#betNum');
 var $bankNum = $('#bankNum');
+var $playerPts = $('#playerPts');
+var $dealerPts = $('#dealerPts');
 
 
 //Create 52 objects/////////////////////////////////
@@ -343,7 +347,8 @@ var dealEm = function(){
     clearHands();
     createDealtObjects();
     createDealtElements();
-    checkBJ();
+    updatePtsDeal();
+    // checkBJ();
     updateNum();
 }
 }
@@ -382,14 +387,16 @@ var dealerHitElements = function(){
 var hitPlayer = function(){
   playerHitObjects();
   playerHitElements();
-  checkBJ();
+  updatePtsPlayerHit();
+  // checkBJ();
   playerBust();
 }
 
 var hitDealer = function(){
   dealerHitObjects();
   dealerHitElements();
-  checkBJ();
+  updatePts();
+  // checkBJ();
   dealerBust();
   checkPush();
   dealerWin();
@@ -400,10 +407,21 @@ var hitDealer = function(){
 
 var stand = function(){
   $dealer_down.children().attr('id', '');
-  checkPush();
-  checkPlayerWin();
+  updatePts();
   if(getScore(dealerHandArr) > getScore(playerHandArr)){
     showMessage("Dealer Wins");
+    betLost();
+    updateNum();
+    betLock = false;
+  } else if(getScore(dealerHandArr) >= 17 && getScore(dealerHandArr) === getScore(playerHandArr)){
+    showMessage("Push It Real Good");
+    updateNum();
+    betLock = false;
+  } else if(getScore(dealerHandArr) >= 17 && getScore(dealerHandArr) < getScore(playerHandArr)){
+    showMessage("You Won");
+    betWon();
+    updateNum();
+    betLock = false;
   } else if(getScore(dealerHandArr) < 17){
     hitDealer();
     if(getScore(dealerHandArr) < 17){
@@ -440,13 +458,23 @@ var getScore = function(arr){
     }
     score += arr[i].pointVal;
     }
-    if(score > 21 && aceCount > 0){
+    if(score > 21 && aceCount === 1){
       finalScore = score - 10;
+    } else if(score > 21 && aceCount === 2){
+      finalScore = score - 20;
+    } else if(score > 21 && aceCount === 3){
+      finalScore = score - 30;
+    } else if(score > 21 && aceCount === 4){
+      finalScore = score - 40;
     } else {
       finalScore = score;
     }
     return finalScore;
   }
+
+
+
+
 
 
 // var aceMod = function(){
@@ -472,22 +500,38 @@ var updateNum = function(){
   $betNum.text("$" + getTotal(betArr));
 }
 
-
-var checkBJ = function(){
-  if(getScore(playerHandArr) === 21){
-    $dealer_down.children().attr('id', '');
-    showMessage("BlackJack!!!");
-    betWon();
-    betLock = false;
-    updateNum();
-  }else if(getScore(dealerHandArr) === 21){
-    $dealer_down.children().attr('id', '');
-    showMessage("Dealer BlackJack");
-    betLost();
-    betLock = false;
-    updateNum();
-  }
+var updatePtsDeal = function(){
+  $playerPts.text(getScore(playerHandArr));
+  $dealerPts.text(dealerHandArr[1].pointVal);
 }
+
+var updatePts = function(){
+  $playerPts.text(getScore(playerHandArr));
+  $dealerPts.text(getScore(dealerHandArr));
+}
+
+var updatePtsPlayerHit = function(){
+  $playerPts.text(getScore(playerHandArr));
+}
+
+
+// var checkBJ = function(){
+//   if(getScore(playerHandArr) === 21){
+//     $dealer_down.children().attr('id', '');
+//     showMessage("BlackJack!!!");
+//     betWon();
+//     betLock = false;
+//     updateNum();
+//     updatePts();
+//   }else if(getScore(dealerHandArr) === 21){
+//     $dealer_down.children().attr('id', '');
+//     showMessage("Dealer BlackJack");
+//     betLost();
+//     betLock = false;
+//     updateNum();
+//     updatePts();
+//   }
+// }
 
 var dealerBust = function(){
   if(getScore(dealerHandArr) > 21){
@@ -500,10 +544,12 @@ var dealerBust = function(){
 
 var playerBust = function(){
   if(getScore(playerHandArr) > 21){
+    $dealer_down.children().attr('id', '');
     showMessage("Bust");
     betLost();
     betLock = false;
     updateNum();
+    updatePts();
   }
 }
 
@@ -513,6 +559,13 @@ var dealerWin = function(){
     betLost();
     betLock = false;
     updateNum();
+    updatePts();
+  } else if(getScore(dealerHandArr) === 21 && getScore(dealerHandArr) > getScore(playerHandArr) && getScore(playerHandArr)< 21){
+    showMessage("Dealer BlackJack");
+    betLost();
+    betLock = false;
+    updateNum();
+    updatePts();
   }
 }
 
@@ -520,7 +573,8 @@ var checkPush = function(){
   if(getScore(dealerHandArr) >= 17 && getScore(dealerHandArr) === getScore(playerHandArr)){
     showMessage("Push");
     betLock = false;
-    updateNum()
+    updateNum();
+    updatePts();
   }
 }
 
@@ -530,6 +584,14 @@ var checkPlayerWin = function(){
     betWon();
     betLock = false;
     updateNum();
+    updatePts();
+
+  } else if(getScore(playerHandArr) === 21 && getScore(playerHandArr) > getScore(dealerHandArr) && getScore(dealerHandArr)< 21){
+    showMessage("Blackjack");
+    betWon();
+    betLock = false;
+    updateNum();
+    updatePts();
   }
 }
 
@@ -701,6 +763,7 @@ var clearHands = function(){
   $dealer_down.empty();
   $dealerUp.empty();
   $playerHand.empty();
+  updatePts();
 }
 
 ///////////////////////////////////////////////////////
@@ -731,3 +794,4 @@ $atmImg.on('click', getCash);
 
 
 ////////////////////////////////////////////////
+});

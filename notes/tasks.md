@@ -5,7 +5,7 @@
 Your game of Blackjack must have at minimum:
 - A way to keep track of the current player bankroll (a player should be able to play consecutive hands and the bankroll should reflect wins and losses)
 - A way for the player to make a bet
-A way for the player to get more cards, or declare themselves happy with their current hand
+- A way for the player to get more cards, or declare themselves happy with their current hand
 - A way for the player to bust
 - A way for the player to win
 - Game logic for the dealer to hit until a certain point
@@ -36,4 +36,4 @@ Going above and beyond the basic implementation is desirable, should you have th
 - Allow for play with 8 deck shoe
 - Allow get new shoe
 - Card counting odds (based on shoe history)
-- Store game info locally or remotely so user can come back 
+- Store game info locally or remotely so user can come back
