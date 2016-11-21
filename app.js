@@ -432,11 +432,34 @@ var stand = function(){
 
 var getScore = function(arr){
   var score = 0
+  var aceCount = 0
+  var finalScore = 0
   for(var i = 0; i < arr.length; i++){
+    if(arr[i].pointVal === 11){
+      aceCount = aceCount + 1;
+    }
     score += arr[i].pointVal;
+    }
+    if(score > 21 && aceCount > 0){
+      finalScore = score - 10;
+    } else {
+      finalScore = score;
+    }
+    return finalScore;
   }
-  return score;
-}
+
+
+// var aceMod = function(){
+//   for(var i = 0; i < arr.length; i++){
+//     if(score > 21 && arr[i].pointVal === 11){
+//       score = score - 10;
+//     }
+//   }
+//   for(var i = 0; i < arr.length; i++){
+//     if()
+//   }
+// }
+
 var getTotal = function(arr){
   var total = 0
   for(var i = 0; i < arr.length; i++){
