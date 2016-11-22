@@ -23,20 +23,67 @@ div {
   position: absolute;
   top: 5px;
   right: 10px;
-  width: 310px;
+  width: 250px;
   height: 80px;
   border: none;
+}
+
+#outerMainHeadDown {
+  position: absolute;
+  top: 90px;
+  right:30px;
+  width: 80px;
+  height:260px;
 }
 
 #main_head {
   position: relative;
   font-family: 'Londrina Sketch', cursive;
   font-size: 5em;
-  width: 310px;
-  height: 80px;
+  width: inherit;
+  height: inherit;
   display: block;
   border: none;
+  color: #7A7A7A;
+  letter-spacing: 5px;
 }
+
+#jackDown {
+  position: relative;
+  font-family: 'Londrina Sketch', cursive;
+  font-size: 5em;
+  width: inherit;
+  height: inherit;
+  border: none;
+  color: #7A7A7A;
+  line-height: 70px;
+  text-align: center;
+}
+
+#newGameImg {
+  position: absolute;
+  width: 75px;
+  height: 75px;
+  right: 280px;
+  top: 15px;
+  opacity: 0.5;
+}
+
+body {
+  background-color: #E5E5E5;
+}
+
+.outer{
+  border: none;
+}
+
+.elementBox {
+  border: none;
+  background-color: #DCDCDC;
+  border-radius: 5%;
+}
+
+
 
 /*SHOE ELEMENTS////////////////////////////////////////*/
 
@@ -99,8 +146,8 @@ div {
 /*Dealer Elements//////////////////////////////////////////*/
 #outerDealerBox {
   position: absolute;
-  top: 120px;
-  right: 40px;
+  top: 100px;
+  right: 120px;
   width: 410px;
   height: 280px;
 }
@@ -124,7 +171,7 @@ div {
 
 #dealer_head {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 150px;
   height: 50px;
   width: 100px;
@@ -135,11 +182,11 @@ div {
 
 #dealerPts {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 45px;
   height: 50px;
   width: 90px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
   border: none;
 }
@@ -155,6 +202,9 @@ div {
   display: flex;
   justify-content: left;
   border: none;
+  padding-left: 20px;
+  padding-top: 35px;
+  box-sizing: border-box;
 }
 #dealer_up {
   margin: auto;
@@ -175,12 +225,16 @@ div {
   height: 120px;
   width: 90px;
   margin-right: -20px;
+  border-radius: 8%;
 }
 
 #dealerDown {
-  background-color: black;
-  background-image: none;
-  border: none;
+  background-image: url('images/suitsBackImg.png');
+  background-size: 25% 25%;
+  background-color: white;
+  border: 2px solid black;
+  border-radius: 8%;
+
 }
 
 #dealerUp {
@@ -206,7 +260,7 @@ div {
 
 #player_head {
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 120px;
   height: 50px;
   width: 100px;
@@ -217,11 +271,11 @@ div {
 
 #playerPts{
   position: absolute;
-  top: 5px;
+  top: 10px;
   right: 15px;
   height: 50px;
   width: 90px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Londrina Sketch', cursive;
   font-size: 2.5em;
   border: none;
 }
@@ -250,6 +304,20 @@ div {
   background-color: lightgrey;
   border-radius: 5%;
   border: none;
+  padding-left: 20px;
+  padding-top: 35px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+#doubleDownImg {
+  height: 55px;
+  width: 55px;
+  position: absolute;
+  z-index: 2;
+  right: 30px;
+  top: 90px;
+  visibility: hidden;
 }
 /*/////////////////////////////////////////////////////////*/
 /*Bet Elements/////////////////////////////////////////////*/
@@ -285,8 +353,8 @@ div {
   width: 120px;
   top: 5px;
   right: 15px;
-  font-family: 'Source Sans Pro', sans-serif;
-  font-size: 2em;
+  font-family: 'Londrina Sketch', cursive;
+  font-size: 2.5em;
   border: none
 }
 
@@ -295,14 +363,16 @@ div {
   width: 280px;
   position: absolute;
   bottom: 5px;
+  padding-left: 40px;
+  box-sizing: border-box;
   border: none;
 }
 /*/////////////////////////////////////////////////////////*/
 /*Bank Elements////////////////////////////////////////////*/
 #outerBankBox {
   position: absolute;
-  top: 450px;
-  right: 40px;
+  top: 410px;
+  right: 120px;
   height: 280px;
   width: 370px;
 }
@@ -312,6 +382,8 @@ div {
   height: inherit;
   width: inherit;
   visibility: visible;
+  border: none;
+  border-radius: 5%
 }
 
 #atmImg {
@@ -342,25 +414,26 @@ div {
 #bankNum {
   position: absolute;
   top: 65px;
-  left: 10px;
+  left: 20px;
   width: 100px;
   height: 50px;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: 'Londrina Sketch', cursive;
   font-size: 2em;
   border: none;
 }
 
 #bank100 {
   position: absolute;
-  top: 5px;
+  top: 50px;
   right: 130px;
   height: 120px;
   width: 120px;
   border: none;
+
 }
 #bank25 {
   position: absolute;
-  top: 5px;
+  top: 50px;
   right: 5px;
   height: 120px;
   width: 120px;
@@ -369,7 +442,7 @@ div {
 #bank10 {
   position: absolute;
   bottom: 5px;
-  left: 5px;
+  left: 40px;
   height: 120px;
   width: 180px;
   border: none;
@@ -391,7 +464,7 @@ div {
   background-color: white;
   text-align: center;
   line-height: 80px;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'Londrina Solid', cursive;
   font-size: 1.5em;
   border: none;
 }
@@ -498,7 +571,7 @@ div {
 }
 .five.spades {
   background-image: url('images/PNG-cards-1.3/5_of_spades.png');
-  background-size: 100%;
+  background-size: 100% 100%;
 }
 .six.clubs {
   background-image: url('images/PNG-cards-1.3/6_of_clubs.png');

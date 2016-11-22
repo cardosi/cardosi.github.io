@@ -3,6 +3,28 @@ $(function(){
 //Event Handlers/////////////////////////////////////////////
 var betLock = false;
 
+var newGame = function(){
+  betLock = false;
+  playerHandArr = [];
+  dealerHandArr = [];
+  bankArr = [];
+  betArr = [];
+  shoeArr = [];
+  $bank5.empty();
+  $bank10.empty();
+  $bank25.empty();
+  $bank100.empty();
+  $bet.empty();
+  $shoe.empty();
+  $atmDiv.show();
+  $playerHand.empty();
+  $dealer_down.empty();
+  $dealerUp.empty();
+  $bankBox.css('visibility', 'hidden');
+}
+
+
+
 var unbet = function(){
   if(betLock){
     showMessage("Don't touch the chips, we're in the middle of a hand!");
@@ -108,7 +130,7 @@ var showMessage = function(text){
 }
 
 var getCash = function(){
-  $atmDiv.remove();
+  $atmDiv.hide();
   $bankBox.css('visibility', 'visible');
   createBank();
 }
@@ -152,6 +174,8 @@ var $betNum = $('#betNum');
 var $bankNum = $('#bankNum');
 var $playerPts = $('#playerPts');
 var $dealerPts = $('#dealerPts');
+var $newGame = $('#newGameImg');
+var $ddImg = $('#doubleDownImg')
 
 
 //Create 52 objects/////////////////////////////////
@@ -352,6 +376,8 @@ var dealEm = function(){
     updatePtsDeal();
     // checkBJ();
     updateNum();
+    showDD();
+    console.log(playerHandArr);
 }
 }
 
@@ -476,21 +502,6 @@ var getScore = function(arr){
     return finalScore;
   }
 
-
-
-
-
-
-// var aceMod = function(){
-//   for(var i = 0; i < arr.length; i++){
-//     if(score > 21 && arr[i].pointVal === 11){
-//       score = score - 10;
-//     }
-//   }
-//   for(var i = 0; i < arr.length; i++){
-//     if()
-//   }
-// }
 
 var getTotal = function(arr){
   var total = 0
@@ -705,59 +716,7 @@ var betLost = function(){
   $bet.empty();
 }
 
-// var betLost = function(){
-//   for(var i = 0; i < betArr.length; i++){
-//     for(var j = 0; j < bankArr.lenght; i++){
-//       if(betArr[i].denom = bankArr[j].denom){
-//         bankArr.splice(j, 1);
-//         break;
-//       }else{
-//         betArr.splice(i, 1);
-//         break;
-//       }
-//     }
-//   }
-//   $bank100.empty();
-//   $bank25.empty();
-//   $bank10.empty();
-//   $bank5.empty();
-//   $bet.empty();
-//   for(var i = 0; i < bankArr.length; i++){
-//     if(bankArr[i].denom === 5){
-//       var $chip = $('<div>');
-//       $chip.on('click', bet);
-//       $chip.addClass('chip');
-//       $chip.addClass('bankChip');
-//       $chip.addClass('chip5');
-//       $chip.text('5');
-//       $bank5.append($chip);
-//     }else if(bankArr[i].denom === 10){
-//       var $chip = $('<div>');
-//       $chip.on('click', bet);
-//       $chip.addClass('chip');
-//       $chip.addClass('bankChip');
-//       $chip.addClass('chip10');
-//       $chip.text('10');
-//       $bank10.append($chip);
-//     } else if(bankArr[i].denom === 25){
-//       var $chip = $('<div>');
-//       $chip.on('click', bet);
-//       $chip.addClass('chip');
-//       $chip.addClass('bankChip');
-//       $chip.addClass('chip25');
-//       $chip.text('25');
-//       $bank25.append($chip);
-//     } else if(bankArr[i].denom === 100){
-//       var $chip = $('<div>');
-//       $chip.on('click', bet);
-//       $chip.addClass('chip');
-//       $chip.addClass('bankChip');
-//       $chip.addClass('chip100');
-//       $chip.text('100');
-//       $bank100.append($chip);
-//     }
-//   }
-// }
+
 ///////////////////////////////////////////////////////
 //Clears & Resets//////////////////////////////////////
 var clearHands = function(){
@@ -773,6 +732,15 @@ var clearHands = function(){
 ///////////////////////////////////////////////////////
 //Event Listeners//////////////////////////////////////
 
+
+
+var showDD = function(){
+  if(getScore(playerHandArr) >= 9 && getScore(playerHandArr) <= 11){
+    console.log('DOUBLE DOWN');
+    $ddImg.css('visibility', 'visible');
+  }
+}
+
 $bigShoeImg.on('click', populateBigShoe);
 $shoeImg.on('click', populateSmallShoe);
 $deckImg.on('click', populateDeckShoe);
@@ -781,6 +749,7 @@ $hitImg.on('click', hitPlayer);
 $standImg.on('click', stand);
 $message.on('click', hideMessage);
 $atmImg.on('click', getCash);
+$newGame.on('click', newGame);
 
 
 

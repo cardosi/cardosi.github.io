@@ -8,20 +8,24 @@
 
   </head>
   <body>
-    <div id='outerMainHead'>
-      <div id='main_head'>BlackJack</div>
+    <img src='images/suitIconImg.png' id='newGameImg'/>
+    <div id='outerMainHead' class='outer'>
+      <div id='main_head'>BLACK</div>
     </div>
-    <div id='outerShoeBox'>
-      <div id='shoeBox'>
+    <div id='outerMainHeadDown' class='outer'>
+      <div id='jackDown'>J<br>A<br>C<br>K<br></div>
+    </div>
+    <div id='outerShoeBox' class='outer'>
+      <div id='shoeBox' class='elementBox'>
         <img src='images/shoe.png' id='shoeImg' alt='Play With 6-Deck Shoe'/>
         <img src='images/big_shoe.png' id='bigShoeImg' alt='Play With 8-Deck Shoe'/>
         <img src='images/deck.png' id='deckImg' alt='Play With Single Deck'/>
         <div id='shoe'></div>
       </div>
     </div>
-    <div id='outerDealerBox'>
-      <div id='dealerBox'>
-        <div id="dealer_head">Dealer</div>
+    <div id='outerDealerBox' class='outer'>
+      <div id='dealerBox' class='elementBox'>
+        <div id="dealer_head">Dealer:</div>
         <div id='dealerPts'></div>
         <img src='images/dealImg.png' id='dealImg' alt='deal cards icon'/>
         <div id='dealer_hand'>
@@ -30,27 +34,28 @@
         </div>
       </div>
     </div>
-    <div id='outerPlayerBox'>
-      <div id='playerBox'>
-        <div id='player_head'>Player</div>
+    <div id='outerPlayerBox' class='outer'>
+      <div id='playerBox' class='elementBox'>
+        <div id='player_head'>Player:</div>
         <div id='playerPts'></div>
         <img src='images/hitImg.png' id='hitImg' alt='hit icon'/>
         <img src='images/standImg.png' id='standImg' alt='stand icon'/>
+        <img src='images/doubledownImg.png' id='doubleDownImg' alt='double down icon'/>
         <div id='player_hand'></div>
       </div>
     </div>
-    <div id='outerBetBox'>
-      <div id='betBox'>
+    <div id='outerBetBox' class='outer'>
+      <div id='betBox' class='elementBox'>
         <div id='bet_head'>Bet</div>
         <div id='betNum'>$0</div>
         <div id='bet'></div>
       </div>
     </div>
-    <div id='outerBankBox'>
+    <div id='outerBankBox' class='elementBox outer'>
       <div id='atmDiv'>
         <img src='/Users/CamCardosi/project1/images/atmImg.png' id='atmImg' alt='ATM icon'/>
       </div>
-      <div id='bankBox'>
+      <div id='bankBox' class='elementBox'>
         <div id='bank_head'>Bank</div>
         <div id='bankNum'>$500</div>
         <div id='bank100'></div>
