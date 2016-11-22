@@ -300,11 +300,13 @@ var createDealtElements = function(){
 var addDealerSuitFace = function(){
   $dealerCard.addClass(dealerHandArr[i].faceVal);
   $dealerCard.addClass(dealerHandArr[i].suit);
+  $dealerCard.addClass('card');
 };
 
 var addPlayerSuitFace = function(){
   $playerCard.addClass(playerHandArr[i].faceVal);
   $playerCard.addClass(playerHandArr[i].suit);
+  $playerCard.addClass('card');
 };
 
 
@@ -365,6 +367,7 @@ var playerHitElements = function(){
   $('.shoeCard').eq(0).remove()
   var $playerCard = $('<div>');
   $playerCard.addClass('playerHand');
+  $playerCard.addClass('card');
   $playerCard.addClass(playerHandArr[playerHandArr.length-1].suit);
   $playerCard.addClass(playerHandArr[playerHandArr.length-1].faceVal);
   $playerHand.append($playerCard);
@@ -378,6 +381,7 @@ var dealerHitObjects = function(){
 var dealerHitElements = function(){
   $('.shoeCard').eq(0).remove()
   var $dealerCard = $('<div>');
+  $dealerCard.addClass('card');
   $dealerCard.addClass('dealerHand');
   $dealerCard.addClass(dealerHandArr[dealerHandArr.length-1].suit);
   $dealerCard.addClass(dealerHandArr[dealerHandArr.length-1].faceVal);
