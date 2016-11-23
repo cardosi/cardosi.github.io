@@ -79,6 +79,9 @@ var bet = function(){
     showMessage("Don't touch the chips, we're in the middle of a hand!");
   } else if(betLock === false){
     $bet.append($(this));
+    $(this).unbind('click', addChips100);
+    $(this).unbind('click', addChips25);
+    $(this).unbind('click', addChips10);
     $(this).unbind('click', bet);
     $(this).bind('click', unbet);
     if($(this).hasClass('chip5')){
@@ -133,6 +136,7 @@ var getCash = function(){
   $atmDiv.hide();
   $bankBox.css('visibility', 'visible');
   createBank();
+  $chipChange.css('visibility', 'visible');
 }
 
 ///////////////////////////////////////////////////////////////
@@ -179,6 +183,12 @@ var $ddImg = $('#doubleDownImg');
 var $ddMessage = $('#ddMessage');
 var ddBet = 0;
 window.ddBet = ddBet;
+var $chipChange = $('#chipChange');
+var $changeBox = $('#changeBox');
+var $plusImg = $('#plusImg');
+var $minusImg = $('#minusImg');
+var clickToggle = true;
+window.clickToggle = clickToggle;
 
 
 //Create 52 objects/////////////////////////////////
@@ -549,24 +559,6 @@ var updatePtsPlayerHit = function(){
 }
 
 
-// var checkBJ = function(){
-//   if(getScore(playerHandArr) === 21){
-//     $dealer_down.children().attr('id', '');
-//     showMessage("BlackJack!!!");
-//     betWon();
-//     betLock = false;
-//     updateNum();
-//     updatePts();
-//   }else if(getScore(dealerHandArr) === 21){
-//     $dealer_down.children().attr('id', '');
-//     showMessage("Dealer BlackJack");
-//     betLost();
-//     betLock = false;
-//     updateNum();
-//     updatePts();
-//   }
-// }
-
 var dealerBust = function(){
   if(getScore(dealerHandArr) > 21){
     showMessage("Dealer Busts");
@@ -769,6 +761,113 @@ var doubleDown = function(){
   $ddImg.css('visibility', 'hidden');
 }
 
+
+var showHidePlusMinus = function(){
+  if(clickToggle){
+    $plusImg.css('visibility', 'visible');
+    $minusImg.css('visibility', 'visible');
+    clickToggle = false;
+  } else {
+    $plusImg.css('visibility', 'hidden');
+    $minusImg.css('visibility', 'hidden');
+    clickToggle = true;
+  }
+}
+
+var addChips100 = function(){
+  for(var i = 0; i < bankArr.length; i++){
+    if(bankArr[i].denom === 100){
+      bankArr.splice(i,1);
+      $(this).remove();
+      for(var j = 0; j < 4; j++){
+        var chip25 = new Chip(25);
+        bankArr.push(chip25);
+        var $chip = $('<div>');
+        $chip.addClass('chip');
+        $chip.bind('click', addChips25);
+        $chip.addClass('chip25');
+        $chip.text('25');
+        $bank25.append($chip);
+      }
+      break;
+      console.log(bankArr);
+    }
+  }
+}
+
+var addChips25 = function(){
+  for(var i = 0; i < bankArr.length; i++){
+    if(bankArr[i].denom === 25){
+      bankArr.splice(i,1);
+      $(this).remove();
+      for(var j = 0; j < 2; j++){
+        var chip10 = new Chip(10);
+        bankArr.push(chip10);
+        var $chip = $('<div>');
+        $chip.addClass('chip');
+        $chip.bind('click', addChips10);
+        $chip.addClass('chip10');
+        $chip.text('10');
+        $bank10.append($chip);
+      }
+      var chip5 = new Chip(5);
+      bankArr.push(chip5);
+      var $chip = $('<div>');
+      $chip.addClass('chip');
+      $chip.addClass('chip5');
+      $chip.text('5');
+      $bank5.append($chip);
+      break;
+    }
+  }
+}
+
+var addChips10 = function(){
+  for(var i = 0; i < bankArr.length; i++){
+    if(bankArr[i].denom === 10){
+      bankArr.splice(i,1);
+      $(this).remove();
+      for(var j = 0; j < 2; j++){
+        var chip5 = new Chip(5);
+        bankArr.push(chip5);
+        var $chip = $('<div>');
+        $chip.addClass('chip');
+        $chip.addClass('chip5');
+        $chip.text('5');
+        $bank5.append($chip);
+      }
+      break;
+      console.log(bankArr);
+    }
+  }
+}
+var addToggle = true;
+var addAllChips = function(){
+  if(addToggle){
+    $minusImg.css('opacity', '0.3');
+    $bank100.children().unbind('click', bet);
+    $bank100.children().bind('click', addChips100);
+    $bank25.children().unbind('click', bet);
+    $bank25.children().bind('click', addChips25);
+    $bank10.children().unbind('click', bet);
+    $bank10.children().bind('click', addChips10);
+    addToggle = false;
+  } else {
+    $minusImg.css('opacity', '1');
+    $bank100.children().bind('click', bet);
+    $bank100.children().unbind('click', addChips100);
+    $bank25.children().bind('click', bet);
+    $bank25.children().unbind('click', addChips25);
+    $bank10.children().bind('click', bet);
+    $bank10.children().unbind('click', addChips10);
+    $bank5.children().bind('click', bet);
+    addToggle = true;
+  }
+
+}
+
+
+
 $bigShoeImg.on('click', populateBigShoe);
 $shoeImg.on('click', populateSmallShoe);
 $deckImg.on('click', populateDeckShoe);
@@ -779,6 +878,8 @@ $message.on('click', hideMessage);
 $atmImg.on('click', getCash);
 $newGame.on('click', newGame);
 $ddImg.on('click', doubleDown);
+$plusImg.on('click', addAllChips);
+$chipChange.on('click', showHidePlusMinus);
 
 
 

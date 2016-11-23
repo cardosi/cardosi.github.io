@@ -69,6 +69,50 @@ div {
   opacity: 0.5;
 }
 
+#outerChange {
+  position: absolute;
+  top: 460px;
+  right: 0px;
+  height: 240px;
+  width: 120px;
+  border: none;
+}
+
+#changeBox {
+  position: relative;
+  height: inherit;
+  width: inherit;
+  border: none;
+}
+#minusImg {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  top: 80px;
+  right: 40px;
+  visibility: hidden;
+
+}
+
+#plusImg {
+  position: absolute;
+  height: 60px;
+  width: 60px;
+  top: 0px;
+  right: 40px;
+  visibility: hidden;
+}
+
+
+#chipChange {
+  position: absolute;
+  right: 11px;
+  bottom: 0px;
+  height: 90px;
+  width: auto;
+  visibility: hidden;
+}
+
 body {
   background-color: #E5E5E5;
 }
