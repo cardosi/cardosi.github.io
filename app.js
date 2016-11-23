@@ -800,9 +800,11 @@ var addChips100 = function(){
         $chip.addClass('chip25');
         $chip.text('25');
         $bank25.append($chip);
+        console.log(bankArr);
+        console.log(getTotal(bankArr));
       }
       break;
-      console.log(bankArr);
+
     }
   }
 }
@@ -829,6 +831,8 @@ var addChips25 = function(){
       $chip.addClass('chip5');
       $chip.text('5');
       $bank5.append($chip);
+      console.log(bankArr);
+      console.log(getTotal(bankArr));
       break;
     }
   }
@@ -847,6 +851,8 @@ var addChips10 = function(){
         $chip.addClass('chip5');
         $chip.text('5');
         $bank5.append($chip);
+        console.log(bankArr);
+        console.log(getTotal(bankArr));
       }
       break;
       console.log(bankArr);
@@ -856,6 +862,7 @@ var addChips10 = function(){
 var addToggle = true;
 var addAllChips = function(){
   if(addToggle){
+    $plusImg.css('opacity', '1');
     $minusImg.css('opacity', '0.3');
     $bank100.children().unbind('click', bet);
     $bank100.children().bind('click', addChips100);
@@ -863,6 +870,7 @@ var addAllChips = function(){
     $bank25.children().bind('click', addChips25);
     $bank10.children().unbind('click', bet);
     $bank10.children().bind('click', addChips10);
+    $bank5.children().unbind('click', bet);
     addToggle = false;
   } else {
     $minusImg.css('opacity', '1');
@@ -886,11 +894,12 @@ var lessChips5 = function(){
   }
   if(chipCount5 >= 5){
     for(var i = 0; i < 5; i++){
+      var toggle = true
       for(var j = 0; j < bankArr.length; j++){
-        if(bankArr[j].denom === 5){
+        if(bankArr[j].denom === 5 && toggle){
           bankArr.splice(j,1);
+          toggle = false;
         }
-        break;
       }
       $bank5.children()[0].remove();
     }
@@ -902,6 +911,8 @@ var lessChips5 = function(){
     $chip.bind('click', lessChips25);
     $chip.text('25');
     $bank25.append($chip);
+    console.log(bankArr);
+    console.log(getTotal(bankArr));
   }
 }
 
@@ -914,11 +925,12 @@ var lessChips10 = function(){
   }
   if(chipCount10 >= 5){
     for(var i = 0; i < 5; i++){
+      var toggle = true;
       for(var j = 0; j < bankArr.length; j++){
-        if(bankArr[j].denom === 10){
+        if(bankArr[j].denom === 10 && toggle){
           bankArr.splice(j,1);
+          toggle = false;
         }
-        break;
       }
       $bank10.children()[0].remove();
     }
@@ -931,6 +943,8 @@ var lessChips10 = function(){
       $chip.addClass('chip25');
       $chip.text('25');
       $bank25.append($chip);
+      console.log(bankArr);
+      console.log(getTotal(bankArr));
     }
   }
 }
@@ -944,11 +958,12 @@ var lessChips25 = function(){
   }
   if(chipCount25 >= 4){
     for(var i = 0; i < 4; i++){
+      var toggle = true;
       for(var j = 0; j < bankArr.length; j++){
-        if(bankArr[j].denom === 25){
+        if(bankArr[j].denom === 25 && toggle){
           bankArr.splice(j,1);
+          toggle = false;
         }
-        break;
       }
       $bank25.children()[0].remove();
     }
@@ -959,12 +974,15 @@ var lessChips25 = function(){
     $chip.addClass('chip100');
     $chip.text('100');
     $bank100.append($chip);
+    console.log(bankArr);
+    console.log(getTotal(bankArr));
   }
 }
 
 var minusToggle = true;
 var minusAllChips = function(){
   if(minusToggle){
+    $minusImg.css('opacity', '1');
     $plusImg.css('opacity', '0.3');
     $bank25.children().unbind('click', bet);
     $bank25.children().bind('click', lessChips25);
