@@ -273,31 +273,43 @@ var populateShoeArr = function(){
 /////////////////////////////////////////////
 //Populate Shoe//////////////////////////////
 var populateBigShoe = function(){
-  fillShoeArr(416);
-  populateShoeArr();
-  $(shoeArr).each(function(){
-    var $card = $('<div>');
-    $card.addClass('shoeCard');
-    $shoe.append($card);
-  })
+  if(shoeArr.length > 10){
+    showMessage('You have plenty of cards');
+  }else{
+    fillShoeArr(416);
+    populateShoeArr();
+    $(shoeArr).each(function(){
+      var $card = $('<div>');
+      $card.addClass('shoeCard');
+      $shoe.append($card);
+    })
+  }
 }
 var populateSmallShoe = function(){
-  fillShoeArr(312);
-  populateShoeArr();
-  $(shoeArr).each(function(){
-    var $card = $('<div>');
-    $card.addClass('shoeCard');
-    $shoe.append($card);
-  })
+  if(shoeArr.length > 10){
+    showMessage('You have plenty of cards');
+  }else{
+    fillShoeArr(312);
+    populateShoeArr();
+    $(shoeArr).each(function(){
+      var $card = $('<div>');
+      $card.addClass('shoeCard');
+      $shoe.append($card);
+    })
+  }
 }
 var populateDeckShoe = function(){
-  fillShoeArr(52);
-  populateShoeArr();
-  $(shoeArr).each(function(){
-    var $card = $('<div>');
-    $card.addClass('shoeCard');
-    $shoe.append($card);
-  })
+  if(shoeArr.length > 10){
+    showMessage('You have plenty of cards');
+  }else{
+    fillShoeArr(52);
+    populateShoeArr();
+    $(shoeArr).each(function(){
+      var $card = $('<div>');
+      $card.addClass('shoeCard');
+      $shoe.append($card);
+    })
+  }
 }
 
 /////////////////////////////////////////////
@@ -863,7 +875,115 @@ var addAllChips = function(){
     $bank5.children().bind('click', bet);
     addToggle = true;
   }
+}
 
+var lessChips5 = function(){
+  var chipCount5 = 0
+  for(var i = 0; i < bankArr.length; i++){
+    if(bankArr[i].denom === 5){
+      chipCount5 = chipCount5 + 1;
+    }
+  }
+  if(chipCount5 >= 5){
+    for(var i = 0; i < 5; i++){
+      for(var j = 0; j < bankArr.length; j++){
+        if(bankArr[j].denom === 5){
+          bankArr.splice(j,1);
+        }
+        break;
+      }
+      $bank5.children()[0].remove();
+    }
+    var chip25 = new Chip(25);
+    bankArr.push(chip25);
+    var $chip = $('<div>');
+    $chip.addClass('chip');
+    $chip.addClass('chip25');
+    $chip.bind('click', lessChips25);
+    $chip.text('25');
+    $bank25.append($chip);
+  }
+}
+
+var lessChips10 = function(){
+  var chipCount10 = 0
+  for(var i = 0; i < bankArr.length; i++){
+    if(bankArr[i].denom === 10){
+      chipCount10 = chipCount10 + 1;
+    }
+  }
+  if(chipCount10 >= 5){
+    for(var i = 0; i < 5; i++){
+      for(var j = 0; j < bankArr.length; j++){
+        if(bankArr[j].denom === 10){
+          bankArr.splice(j,1);
+        }
+        break;
+      }
+      $bank10.children()[0].remove();
+    }
+    for(var i = 0; i < 2; i++){
+      var chip25 = new Chip(25);
+      bankArr.push(chip25);
+      var $chip = $('<div>');
+      $chip.addClass('chip');
+      $chip.bind('click', lessChips25);
+      $chip.addClass('chip25');
+      $chip.text('25');
+      $bank25.append($chip);
+    }
+  }
+}
+
+var lessChips25 = function(){
+  var chipCount25 = 0
+  for(var i = 0; i < bankArr.length; i++){
+    if(bankArr[i].denom === 25){
+      chipCount25 = chipCount25 + 1;
+    }
+  }
+  if(chipCount25 >= 4){
+    for(var i = 0; i < 4; i++){
+      for(var j = 0; j < bankArr.length; j++){
+        if(bankArr[j].denom === 25){
+          bankArr.splice(j,1);
+        }
+        break;
+      }
+      $bank25.children()[0].remove();
+    }
+    var chip100 = new Chip(100);
+    bankArr.push(chip100);
+    var $chip = $('<div>');
+    $chip.addClass('chip');
+    $chip.addClass('chip100');
+    $chip.text('100');
+    $bank100.append($chip);
+  }
+}
+
+var minusToggle = true;
+var minusAllChips = function(){
+  if(minusToggle){
+    $plusImg.css('opacity', '0.3');
+    $bank25.children().unbind('click', bet);
+    $bank25.children().bind('click', lessChips25);
+    $bank10.children().unbind('click', bet);
+    $bank10.children().bind('click', lessChips10);
+    $bank5.children().unbind('click', bet);
+    $bank5.children().bind('click', lessChips5);
+    minusToggle = false;
+  } else {
+    $plusImg.css('opacity', '1');
+    $bank25.children().bind('click', bet);
+    $bank25.children().unbind('click', lessChips25);
+    $bank10.children().bind('click', bet);
+    $bank10.children().unbind('click', lessChips10);
+    $bank5.children().bind('click', bet);
+    $bank5.children().unbind('click', lessChips5);
+    $bank100.children().bind('click', bet);
+    minusToggle = true;
+  }
 }
 
 
@@ -879,6 +999,7 @@ $atmImg.on('click', getCash);
 $newGame.on('click', newGame);
 $ddImg.on('click', doubleDown);
 $plusImg.on('click', addAllChips);
+$minusImg.on('click', minusAllChips);
 $chipChange.on('click', showHidePlusMinus);
 
 
