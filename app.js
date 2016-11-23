@@ -189,6 +189,30 @@ var $plusImg = $('#plusImg');
 var $minusImg = $('#minusImg');
 var clickToggle = true;
 window.clickToggle = clickToggle;
+var $directions = $('#outerDirections');
+var $keyImg = $('#keyImg');
+var $keyHoverBox = $('#keyHoverBox');
+var $keyClose = $('#keyClose');
+var $fullKey = $('#outerFullKey');
+var $keyBigShoe = $('#keyBigShoe');
+var $keyShoe = $('#keyShoe');
+var $keyDeck = $('#keyDeck');
+var $keyChip5 = $('#keyChip5');
+var $keyChip10 = $('#keyChip10');
+var $keyChip25 = $('#keyChip25');
+var $keyChip100 = $('#keyChip100');
+var $keyDeal = $('#keyDeal');
+var $keyHit = $('#keyHit');
+var $keyStand = $('#keyStand');
+var $keyATM = $('#keyATM');
+var $keyChipStack = $('#keyChipStack');
+var $keyPlus = $('#keyPlus');
+var $keyMinus = $('#keyMinus');
+var $keyDD = $('#keyDD');
+var $keyHead = $('#keyHead');
+var $keyMessage = $('#keyMessage');
+var $keyNewGame = $('#keyNewGame');
+
 
 
 //Create 52 objects/////////////////////////////////
@@ -1004,6 +1028,67 @@ var minusAllChips = function(){
   }
 }
 
+var removeDirections = function(){
+  $directions.remove();
+  $bigShoeImg.css('visibility', 'visible');
+  $shoeImg.css('visibility', 'visible');
+  $deckImg.css('visibility', 'visible');
+  $atmImg.css('visibility', 'visible');
+}
+
+var showKey = function(){
+  $keyImg.css('visibility', 'visible');
+}
+
+var hideKey = function(){
+  $keyImg.css('visibility', 'hidden');
+}
+
+var showFullKey = function(){
+  $fullKey.css('visibility', 'visible');
+}
+
+var hideFullKey = function(){
+  $fullKey.css('visibility', 'hidden');
+}
+
+var keyMssPop = function(head, message){
+  $keyHead.text(head);
+  $keyMessage.text(message);
+}
+
+var newGameMss = function(){
+  keyMssPop("New Game", "Click this to reset everything (even your chips!) and start a new game.");
+}
+
+var bigShoeMss = function(){
+  keyMssPop("8 Deck Shoe", "Click this to fill up the shoe with 8 decks");
+}
+
+var shoeMss = function(){
+  keyMssPop("6 Deck Shoe", "Click this to fill up the shoe with 6 decks");
+}
+
+var deckMss = function(){
+  keyMssPop("Single Deck Shoe", "Click this to fill the shoe up with 1 deck");
+}
+
+var dealMss = function(){
+  keyMssPop("Deal", "Click this to deal, but make sure there are cards in the shoe and you've placed a bet");
+}
+
+var hitMss = function(){
+  keyMssPop("Hit", "Click this to Hit (that means you want another card)");
+}
+
+var standMss = function(){
+  keyMssPop("Stand", "Click this if you like your hand and you want to go with it");
+}
+
+var keyMssClear = function(){
+  $keyHead.text('');
+  $keyMessage.text('');
+}
 
 
 $bigShoeImg.on('click', populateBigShoe);
@@ -1019,6 +1104,18 @@ $ddImg.on('click', doubleDown);
 $plusImg.on('click', addAllChips);
 $minusImg.on('click', minusAllChips);
 $chipChange.on('click', showHidePlusMinus);
+$directions.on('click', removeDirections);
+$keyHoverBox.hover(showKey, hideKey);
+$keyImg.on('click', showFullKey);
+$keyClose.on('click', hideFullKey);
+$keyNewGame.hover(newGameMss, keyMssClear);
+$keyBigShoe.hover(bigShoeMss, keyMssClear);
+$keyShoe.hover(shoeMss, keyMssClear);
+$keyDeck.hover(deckMss, keyMssClear);
+$keyDeal.hover(dealMss, keyMssClear);
+$keyHit.hover(hitMss, keyMssClear);
+$keyStand.hover(standMss, keyMssClear);
+
 
 
 
