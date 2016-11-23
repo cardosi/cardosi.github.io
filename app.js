@@ -175,7 +175,10 @@ var $bankNum = $('#bankNum');
 var $playerPts = $('#playerPts');
 var $dealerPts = $('#dealerPts');
 var $newGame = $('#newGameImg');
-var $ddImg = $('#doubleDownImg')
+var $ddImg = $('#doubleDownImg');
+var $ddMessage = $('#ddMessage');
+var ddBet = 0;
+window.ddBet = ddBet;
 
 
 //Create 52 objects/////////////////////////////////
@@ -377,7 +380,7 @@ var dealEm = function(){
     // checkBJ();
     updateNum();
     showDD();
-    console.log(playerHandArr);
+    ddBet = getTotal(betArr);
 }
 }
 
@@ -420,6 +423,22 @@ var hitPlayer = function(){
   updatePtsPlayerHit();
   // checkBJ();
   playerBust();
+  $ddImg.css('visibility', 'hidden');
+}
+
+var hitPlayerDD = function(){
+  if(getTotal(betArr) === (ddBet * 2)){
+    playerHitObjects();
+    playerHitElements();
+    updatePtsPlayerHit();
+    stand();
+    $hitImg.unbind('click', hitPlayerDD);
+    $hitImg.bind('click', hitPlayer);
+    $ddMessage.css('visibility', 'hidden');
+  } else {
+    showMessage('Your total bet has to be ' + ddBet*2);
+  }
+
 }
 
 var hitDealer = function(){
@@ -741,15 +760,25 @@ var showDD = function(){
   }
 }
 
+var doubleDown = function(){
+  betLock = false;
+  $ddMessage.html('Bet Another $' + getTotal(betArr) + '<br>Then Hit It');
+  $ddMessage.css('visibility', 'visible');
+  $hitImg.unbind('click', hitPlayer);
+  $hitImg.bind('click', hitPlayerDD);
+  $ddImg.css('visibility', 'hidden');
+}
+
 $bigShoeImg.on('click', populateBigShoe);
 $shoeImg.on('click', populateSmallShoe);
 $deckImg.on('click', populateDeckShoe);
 $dealImg.on('click', dealEm);
-$hitImg.on('click', hitPlayer);
+$hitImg.bind('click', hitPlayer);
 $standImg.on('click', stand);
 $message.on('click', hideMessage);
 $atmImg.on('click', getCash);
 $newGame.on('click', newGame);
+$ddImg.on('click', doubleDown);
 
 
 

@@ -319,6 +319,20 @@ body {
   top: 90px;
   visibility: hidden;
 }
+
+#ddMessage {
+  z-index: 2;
+  position: absolute;
+  right: 30px;
+  top: 180px;
+  width: 110px;
+  height: 90px;
+  text-align: center;
+  font-family: 'Londrina Solid', cursive;
+  font-size: 1.5em;
+  visibility: hidden;
+  border: none;
+}
 /*/////////////////////////////////////////////////////////*/
 /*Bet Elements/////////////////////////////////////////////*/
 #outerBetBox {
