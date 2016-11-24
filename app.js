@@ -212,6 +212,17 @@ var $keyDD = $('#keyDD');
 var $keyHead = $('#keyHead');
 var $keyMessage = $('#keyMessage');
 var $keyNewGame = $('#keyNewGame');
+var winCount = 0;
+window.winCount = winCount;
+var $bookImg = $('#bookImg');
+var $openBookImg = $('#openBookImg');
+var $rainImg = $('#rainImg');
+var $bookDiv = $('#outerBookHoverDiv');
+var bookSelector = 0;
+window.bookSelector = bookSelector;
+var $standBookImg = $('#standBookImg');
+var $hitBookImg = $('#hitBookImg');
+var $ddBookImg = $('#ddBookImg');
 
 
 
@@ -427,6 +438,9 @@ var dealEm = function(){
     updateNum();
     showDD();
     ddBet = getTotal(betArr);
+    bookSay();
+    console.log(dealerHandArr);
+    console.log(playerHandArr);
 }
 }
 
@@ -469,6 +483,7 @@ var hitPlayer = function(){
   updatePtsPlayerHit();
   // checkBJ();
   playerBust();
+  bookSay();
   $ddImg.css('visibility', 'hidden');
 }
 
@@ -720,6 +735,8 @@ var createBank = function(){
 //Bet Win & Loss///////////////////////////////////////
 
 var betWon = function(){
+  winCount = winCount + 1;
+  winTrack();
   bankArr = bankArr.concat(betArr)
   for(var i = bankArr.length-betArr.length; i < bankArr.length; i++){
     if(bankArr[i].denom === 5){
@@ -1028,6 +1045,22 @@ var minusAllChips = function(){
   }
 }
 
+var darkNewGame = function(){
+  $newGame.css('opacity', '1');
+}
+
+var lightNewGame = function(){
+  $newGame.css('opacity', '0.5');
+}
+
+var darkKey = function(){
+  $keyImg.css('opacity', '1');
+}
+
+var lightKey = function(){
+  $keyImg.css('opacity', '0.5');
+}
+
 var removeDirections = function(){
   $directions.remove();
   $bigShoeImg.css('visibility', 'visible');
@@ -1084,10 +1117,172 @@ var hitMss = function(){
 var standMss = function(){
   keyMssPop("Stand", "Click this if you like your hand and you want to go with it");
 }
+var ddMss = function(){
+  keyMssPop("Double Down", "This will appear near your cards if the first two cards you are dealt add up to 9, 10, or 11. Clicking it will allow you to double your bet and get one more card. If you don't click it, you can continue the hand as normal.");
+}
+
+var atmMss = function(){
+  keyMssPop("ATM", "Click this to get some cash for chips. It'll give you $500 worth of chips. You can only click it once (but if you run out of money, just start a new game).")
+}
+
+var chipChangeMss = function(){
+  keyMssPop("Chip Changer", "Click this to show the Plus and Minus buttons that will allow you to trade your chips for different denominations.");
+}
+
+var plusMss = function(){
+  keyMssPop("Get More Chips", "Click this then click any of your chips (except $5) to trade them in for smaller chips. Once you're done, click it again to resume play.")
+}
+
+var minusMss = function(){
+  keyMssPop("Consolidate Chips", "Click this then click your chips to trade them in for higher denominations. You can trade five $5 chips for a $25, five $10 chips for two $25, or four $25 chips for a $100 chip. Click it again to resume play");
+}
+
+var chip5Mss = function(){
+  keyMssPop("$5 Chip", "This a $5 chip... Click on it to bet one. If you've already bet it, you can click on the $5 chip in the pot and pull it back (only if you're not in the middle of a hand)");
+}
+
+var chip10Mss = function(){
+  keyMssPop("$10 Chip", "This a $10 chip... Click on it to bet one. If you've already bet it, you can click on the $10 chip in the pot and pull it back (only if you're not in the middle of a hand.)");
+}
+
+var chip25Mss = function(){
+  keyMssPop("$25 Chip", "This a $25 chip... Click on it to bet one. If you've already bet it, you can click on the $25 chip in the pot and pull it back (only if you're not in the middle of a hand.)");
+}
+
+var chip100Mss = function(){
+  keyMssPop("$100 Chip", "This a $100 chip... Click on it to bet one. If you've already bet it, you can click on the $100 chip in the pot and pull it back (only if you're not in the middle of a hand.)");
+}
 
 var keyMssClear = function(){
   $keyHead.text('');
   $keyMessage.text('');
+}
+
+var winTrack = function(){
+  if(winCount === 1){
+    $('#k2').css("font-family", "'Londrina Solid', cursive");
+    $('#k2').css('color', 'black');
+  } else if(winCount === 2){
+    $('#c2').css("font-family", "'Londrina Solid', cursive");
+    $('#c2').css('color', 'black');
+  } else if(winCount === 3){
+    $('#a2').css("font-family", "'Londrina Solid', cursive");
+    $('#a2').css('color', 'black');
+  } else if(winCount === 4){
+    $('#j').css("font-family", "'Londrina Solid', cursive");
+    $('#j').css('color', 'black');
+  } else if(winCount === 5){
+    $('#k').css("font-family", "'Londrina Solid', cursive");
+    $('#k').css('color', 'black');
+  } else if(winCount === 6){
+    $('#c').css("font-family", "'Londrina Solid', cursive");
+    $('#c').css('color', 'black');
+  } else if(winCount === 7){
+    $('#a').css("font-family", "'Londrina Solid', cursive");
+    $('#a').css('color', 'black');
+  } else if(winCount === 8){
+    $('#l').css("font-family", "'Londrina Solid', cursive");
+    $('#l').css('color', 'black');
+  } else if(winCount === 9){
+    $('#b').css("font-family", "'Londrina Solid', cursive");
+    $('#b').css('color', 'black');
+  } else if(winCount === 10){
+    $bookImg.remove();
+    $openBookImg.remove();
+    $rainImg.css('visibility', 'visible');
+  }
+}
+
+var showOpenBook = function(){
+  $bookImg.css('visibility', 'hidden');
+  $openBookImg.css('visibility', 'visible');
+}
+
+var showBook = function(){
+  $openBookImg.css('visibility', 'hidden');
+  $bookImg.css('visibility', 'visible');
+}
+
+var bookSay = function(){
+  if(getScore(playerHandArr) >= 17){
+    showStand();
+  }else if(getScore(playerHandArr) === 16 && dealerHandArr[1].pointVal <= 6){
+    showStand();
+  }else if(getScore(playerHandArr) === 16 && dealerHandArr[1].pointVal > 6){
+    showHit();
+  }else if(getScore(playerHandArr) === 15 && dealerHandArr[1].pointVal <= 6){
+    showStand();
+  }else if(getScore(playerHandArr) === 15 && dealerHandArr[1].pointVal > 6){
+    showHit();
+  }else if(getScore(playerHandArr) === 14 && dealerHandArr[1].pointVal <= 6){
+    showStand();
+  }else if(getScore(playerHandArr) === 14 && dealerHandArr[1].pointVal > 6){
+    showHit();
+  }else if(getScore(playerHandArr) === 13 && dealerHandArr[1].pointVal <= 6){
+    showStand();
+  }else if(getScore(playerHandArr) === 13 && dealerHandArr[1].pointVal > 6){
+    showHit();
+  }else if(getScore(playerHandArr) === 12 && dealerHandArr[1].pointVal <= 3){
+    showHit();
+  }else if(getScore(playerHandArr) === 12 && dealerHandArr[1].pointVal > 3 && dealerHandArr[1].pointVal < 7){
+    showStand();
+  }else if(getScore(playerHandArr) === 12 && dealerHandArr[1].pointVal >= 7){
+    showHit();
+  }else if(getScore(playerHandArr) === 11 && dealerHandArr[1].pointVal <= 10){
+    showBookDD();
+  }else if(getScore(playerHandArr) === 11 && dealerHandArr[1].faceVal === 'ace'){
+    showHit();
+  }else if(getScore(playerHandArr) === 10 && dealerHandArr[1].pointVal <= 9){
+    showBookDD();
+  }else if(getScore(playerHandArr) === 10 && dealerHandArr[1].pointVal > 9){
+    showHit();
+  }else if(getScore(playerHandArr) === 9 && dealerHandArr[1].pointVal === 2){
+    showHit();
+  }else if(getScore(playerHandArr) === 9 && dealerHandArr[1].pointVal > 2 && dealerHandArr[1].pointVal <= 6){
+    showBookDD();
+  }else if(getScore(playerHandArr) === 9 && dealerHandArr[1].pointVal > 6){
+    showHit();
+  }else if(getScore(playerHandArr) <= 8){
+    showHit();
+  }
+}
+
+
+var showStand = function(){
+  bookSelector = 1
+};
+
+var showHit = function(){
+  bookSelector = 2
+}
+
+var showBookDD = function(){
+  bookSelector = 3
+}
+
+var hideStandBookImg = function(){
+  $standBookImg.css('visibility', 'hidden');
+}
+
+var hideHitBookImg = function(){
+  $hitBookImg.css('visibility', 'hidden');
+}
+
+var hideDDBookImg = function(){
+  $ddBookImg.css('visibility', 'hidden');
+}
+
+var displayBookSay = function(){
+  if(bookSelector === 1){
+    $standBookImg.css('visibility', 'visible');
+    setTimeout(hideStandBookImg, 3000);
+  }else if(bookSelector === 2){
+    $hitBookImg.css('visibility', 'visible');
+    setTimeout(hideHitBookImg, 3000);
+  }else if(bookSelector === 3){
+    $ddBookImg.css('visibility', 'visible');
+    setTimeout(hideDDBookImg, 3000);
+  }
 }
 
 
@@ -1100,12 +1295,13 @@ $standImg.on('click', stand);
 $message.on('click', hideMessage);
 $atmImg.on('click', getCash);
 $newGame.on('click', newGame);
+$newGame.hover(darkNewGame, lightNewGame);
 $ddImg.on('click', doubleDown);
 $plusImg.on('click', addAllChips);
 $minusImg.on('click', minusAllChips);
 $chipChange.on('click', showHidePlusMinus);
 $directions.on('click', removeDirections);
-$keyHoverBox.hover(showKey, hideKey);
+$keyImg.hover(darkKey, lightKey);
 $keyImg.on('click', showFullKey);
 $keyClose.on('click', hideFullKey);
 $keyNewGame.hover(newGameMss, keyMssClear);
@@ -1115,8 +1311,17 @@ $keyDeck.hover(deckMss, keyMssClear);
 $keyDeal.hover(dealMss, keyMssClear);
 $keyHit.hover(hitMss, keyMssClear);
 $keyStand.hover(standMss, keyMssClear);
-
-
+$keyDD.hover(ddMss, keyMssClear);
+$keyATM.hover(atmMss, keyMssClear);
+$keyChipStack.hover(chipChangeMss, keyMssClear);
+$keyPlus.hover(plusMss, keyMssClear);
+$keyMinus.hover(minusMss, keyMssClear);
+$keyChip5.hover(chip5Mss, keyMssClear);
+$keyChip10.hover(chip10Mss, keyMssClear);
+$keyChip25.hover(chip25Mss, keyMssClear);
+$keyChip100.hover(chip100Mss, keyMssClear);
+$bookDiv.hover(showOpenBook, showBook);
+$openBookImg.on('click', displayBookSay);
 
 
 
