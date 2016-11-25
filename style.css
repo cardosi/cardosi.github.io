@@ -23,11 +23,12 @@ div {
 
 #rainImg {
   position: absolute;
-  height: 140px;
+  height: 90px;
   width: auto;
-  left: 5px;
-  top: 0px;
+  right: 370px;
+  top: 5px;
   border-radius: 30%;
+  opacity: 0.7;
   visibility: hidden;
 }
 
@@ -529,11 +530,11 @@ div {
 
 #keyImg {
   position: absolute;
-  top: -26px;
-  left: 0px;
-  height: 95px;
+  top: 0px;
+  left: -20px;
+  height: 70px;
   width: auto;
-  transform: rotate(112deg);
+  transform: rotate(20deg);
   visibility: visible;
   opacity: 0.5;
 
@@ -548,10 +549,10 @@ div {
 
 #outerKeyHoverBox {
   position: absolute;
-  top: 30px;
-  right: 390px;
-  height: 50px;
-  width: 90px;
+  top: 375px;
+  right: 50px;
+  height: 70px;
+  width: 35px;
   border: none;
 }
 
@@ -775,6 +776,18 @@ body {
   border: none;
 }
 
+#dealerToothpicks {
+  position: absolute;
+  width: 400px;
+  height: 30px;
+  bottom: 15px;
+  left: 5px;
+  border: none;
+  display: flex;
+  justify-content: center;
+  visibility: hidden;
+}
+
 /*/////////////////////////////////////////////////////////*/
 /*Player Elements//////////////////////////////////////////*/
 #outerPlayerBox {
@@ -842,6 +855,25 @@ body {
   padding-top: 35px;
   box-sizing: border-box;
   z-index: 1;
+}
+
+#playerToothpicks {
+  position: absolute;
+  width: 400px;
+  height: 30px;
+  bottom: 15px;
+  left: 5px;
+  z-index: 5;
+  border: none;
+  display: flex;
+  justify-content: center;
+  visibility: hidden;
+}
+
+.pick {
+  height: 25px;
+  width: auto;
+  z-index: 9;
 }
 
 #doubleDownImg {

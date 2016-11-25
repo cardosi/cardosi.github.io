@@ -10,6 +10,7 @@ var newGame = function(){
   bankArr = [];
   betArr = [];
   shoeArr = [];
+  winCount = 0;
   $bank5.empty();
   $bank10.empty();
   $bank25.empty();
@@ -223,6 +224,9 @@ window.bookSelector = bookSelector;
 var $standBookImg = $('#standBookImg');
 var $hitBookImg = $('#hitBookImg');
 var $ddBookImg = $('#ddBookImg');
+var $dealerToothpicks = $('#dealerToothpicks');
+var $playerToothpicks = $('#playerToothpicks');
+var $picks = $('.pick');
 
 
 
@@ -318,6 +322,7 @@ var populateBigShoe = function(){
       $card.addClass('shoeCard');
       $shoe.append($card);
     })
+    rainManMode();
   }
 }
 var populateSmallShoe = function(){
@@ -331,6 +336,7 @@ var populateSmallShoe = function(){
       $card.addClass('shoeCard');
       $shoe.append($card);
     })
+    rainManMode();
   }
 }
 var populateDeckShoe = function(){
@@ -344,6 +350,7 @@ var populateDeckShoe = function(){
       $card.addClass('shoeCard');
       $shoe.append($card);
     })
+    rainManMode();
   }
 }
 
@@ -439,8 +446,8 @@ var dealEm = function(){
     showDD();
     ddBet = getTotal(betArr);
     bookSay();
-    console.log(dealerHandArr);
-    console.log(playerHandArr);
+    rainCount = 0;
+    rainManMode();
 }
 }
 
@@ -485,6 +492,8 @@ var hitPlayer = function(){
   playerBust();
   bookSay();
   $ddImg.css('visibility', 'hidden');
+  rainCount = 0;
+  rainManMode();
 }
 
 var hitPlayerDD = function(){
@@ -1187,9 +1196,11 @@ var winTrack = function(){
     $('#b').css("font-family", "'Londrina Solid', cursive");
     $('#b').css('color', 'black');
   } else if(winCount === 10){
-    $bookImg.remove();
-    $openBookImg.remove();
     $rainImg.css('visibility', 'visible');
+    $playerToothpicks.css('visibility', 'visible');
+    $dealerToothpicks.css('visibility', 'visible');
+    showMessage("Congrats! You've entered Rainman Mode. Rainman has been counting cards and he'll show you who has the advantage based on MIT's High-Low card counting strategy. Watch the toothpicks to see who has the edge")
+
   }
 }
 
@@ -1284,6 +1295,111 @@ var displayBookSay = function(){
     setTimeout(hideDDBookImg, 3000);
   }
 }
+
+var rainCount = 0;
+window.rainCount = rainCount;
+
+var rainManMode = function(){
+  for(var i = 0; i < shoeArr.length; i++){
+    if(shoeArr[i].pointVal >= 10){
+      rainCount = rainCount + 1;
+    }else if(shoeArr[i].pointVal <= 6){
+      rainCount = rainCount - 1;
+    }
+  }
+  console.log("rainCount = " + rainCount);
+  toothpicks();
+}
+
+var toothpicks = function(){
+  $playerToothpicks.empty();
+  $dealerToothpicks.empty();
+  if(rainCount > 0){
+    for(var i = 0; i < rainCount; i++){
+      var $playerPick = $('<img>');
+      $playerPick.attr('src', 'images/toothpick.png');
+      $playerPick.addClass('pick');
+      $playerToothpicks.append($playerPick);
+    }
+  }else if(rainCount < 0){
+    for(var i = 0; i < -rainCount; i++){
+      var $dealerPick = $('<img>');
+      $dealerPick.attr('src', 'images/toothpick.png');
+      $dealerPick.addClass('pick');
+      $dealerToothpicks.append($dealerPick);
+    }
+  }
+}
+
+// var rainManMode = function(){
+//   var rainShoe = Array.from(shoeArr);
+//   rainShoe.push(dealerHandArr[0]);
+//   console.log(dealerHandArr);
+//   console.log(rainShoe);
+//   var beatCardCount = 0;
+//   var lowBeat = (getScore(playerHandArr)-dealerHandArr[1].pointVal)+1;
+//   console.log(lowBeat);
+//   if(lowBeat <= 11 && getScore(playerHandArr) > 11){
+//     for(var i = 0; i < rainShoe.length; i++){
+//       if(rainShoe[i].pointVal >= lowBeat){
+//         beatCardCount = beatCardCount + 1;
+//       }
+//     }
+//     lowBeatChance = (beatCardCount / rainShoe.length) * 100;
+//     console.log(beatCardCount);
+//     console.log('There is a ' + lowBeatChance + '% chance that the dealer has you beat');
+//   }else if((getScore(playerHandArr) === 9 || getScore(playerHandArr) === 10 || getScore(playerHandArr) === 11) ){
+//
+//   }
+// }
+
+// var rainManMode = function(){
+//   var rainShoe = Array.from(shoeArr);
+//   rainShoe.push(dealerHandArr[0]);
+//   console.log(dealerHandArr);
+//   console.log(rainShoe);
+//   if(getScore(playerHandArr) >= 17){
+//     showStand();
+//   }else if(getScore(playerHandArr) === 16 && dealerHandArr[1].pointVal <= 6){
+//     showStand();
+//   }else if(getScore(playerHandArr) === 16 && dealerHandArr[1].pointVal > 6){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 15 && dealerHandArr[1].pointVal <= 6){
+//     showStand();
+//   }else if(getScore(playerHandArr) === 15 && dealerHandArr[1].pointVal > 6){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 14 && dealerHandArr[1].pointVal <= 6){
+//     showStand();
+//   }else if(getScore(playerHandArr) === 14 && dealerHandArr[1].pointVal > 6){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 13 && dealerHandArr[1].pointVal <= 6){
+//     showStand();
+//   }else if(getScore(playerHandArr) === 13 && dealerHandArr[1].pointVal > 6){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 12 && dealerHandArr[1].pointVal <= 3){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 12 && dealerHandArr[1].pointVal > 3 && dealerHandArr[1].pointVal < 7){
+//     showStand();
+//   }else if(getScore(playerHandArr) === 12 && dealerHandArr[1].pointVal >= 7){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 11 && dealerHandArr[1].pointVal <= 10){
+//     showBookDD();
+//   }else if(getScore(playerHandArr) === 11 && dealerHandArr[1].faceVal === 'ace'){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 10 && dealerHandArr[1].pointVal <= 9){
+//     showBookDD();
+//   }else if(getScore(playerHandArr) === 10 && dealerHandArr[1].pointVal > 9){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 9 && dealerHandArr[1].pointVal === 2){
+//     showHit();
+//   }else if(getScore(playerHandArr) === 9 && dealerHandArr[1].pointVal > 2 && dealerHandArr[1].pointVal <= 6){
+//     showBookDD();
+//   }else if(getScore(playerHandArr) === 9 && dealerHandArr[1].pointVal > 6){
+//     showHit();
+//   }else if(getScore(playerHandArr) <= 8){
+//     showHit();
+//   }
+// }
 
 
 $bigShoeImg.on('click', populateBigShoe);

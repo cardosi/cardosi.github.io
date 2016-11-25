@@ -16,3 +16,5 @@ Stand Image:
 - https://thenounproject.com/search/?q=stand&i=12424
 ATM Image:
 - https://thenounproject.com/search/?q=atm&i=290535
+Dustin Hoffman Image:
+- http://finangel.deviantart.com/art/Dustin-Hoffman-554582606
