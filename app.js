@@ -22,6 +22,30 @@ var newGame = function(){
   $dealer_down.empty();
   $dealerUp.empty();
   $bankBox.css('visibility', 'hidden');
+  $rainImg.css('visibility', 'hidden');
+  $('#k2').css("font-family", "'Londrina Sketch', cursive");
+  $('#k2').css('color', '#7A7A7A');
+  $('#c2').css("font-family", "'Londrina Sketch', cursive");
+  $('#c2').css('color', '#7A7A7A');
+  $('#a2').css("font-family", "'Londrina Sketch', cursive");
+  $('#a2').css('color', '#7A7A7A');
+  $('#j').css("font-family", "'Londrina Sketch', cursive");
+  $('#j').css('color', '#7A7A7A');
+  $('#k').css("font-family", "'Londrina Sketch', cursive");
+  $('#k').css('color', '#7A7A7A');
+  $('#c').css("font-family", "'Londrina Sketch', cursive");
+  $('#c').css('color', '#7A7A7A');
+  $('#a').css("font-family", "'Londrina Sketch', cursive");
+  $('#a').css('color', '#7A7A7A');
+  $('#l').css("font-family", "'Londrina Sketch', cursive");
+  $('#l').css('color', '#7A7A7A');
+  $('#b').css("font-family", "'Londrina Sketch', cursive");
+  $('#b').css('color', '#7A7A7A');
+  $playerToothpicks.css('visibility', 'hidden');
+  $dealerToothpicks.css('visibility', 'hidden');
+  updateNum();
+  updatePts();
+
 }
 
 
@@ -227,6 +251,8 @@ var $ddBookImg = $('#ddBookImg');
 var $dealerToothpicks = $('#dealerToothpicks');
 var $playerToothpicks = $('#playerToothpicks');
 var $picks = $('.pick');
+var $mainHead = $('#main_head');
+var $jackDown = $('#jackDown');
 
 
 
@@ -1199,8 +1225,6 @@ var winTrack = function(){
     $rainImg.css('visibility', 'visible');
     $playerToothpicks.css('visibility', 'visible');
     $dealerToothpicks.css('visibility', 'visible');
-    showMessage("Congrats! You've entered Rainman Mode. Rainman has been counting cards and he'll show you who has the advantage based on MIT's High-Low card counting strategy. Watch the toothpicks to see who has the edge")
-
   }
 }
 
@@ -1330,6 +1354,12 @@ var toothpicks = function(){
     }
   }
 }
+
+var rainClickMss = function(){
+  showMessage("You're in Rainman Mode. Rainman will show you who has the advantage based on MIT's High-Low card counting strategy. Watch the toothpicks to see who has the edge")
+};
+
+$rainImg.on('click', rainClickMss);
 
 // var rainManMode = function(){
 //   var rainShoe = Array.from(shoeArr);

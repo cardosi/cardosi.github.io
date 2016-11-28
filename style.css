@@ -32,6 +32,10 @@ div {
   visibility: hidden;
 }
 
+#rainImg:hover {
+  opacity: 1;
+}
+
 #bookImg {
   position: absolute;
   height: 105px;
@@ -465,15 +469,19 @@ div {
 
 /*/////////////////////////////////////////////////////////*/
 #message {
-  height: 150px;
+  height: 450px;
   width: 100%;
   position: absolute;
-  top: 200px;
+  top: 100px;
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 2.5em;
   text-align: center;
-  background-color: white;
+  background-color: rgba(226, 226, 226, 0.75);
   visibility: hidden;
+  border: none;
+  z-index: 10;
+  box-sizing: border-box;
+  padding: 10% 0;
 }
 
 
@@ -692,8 +700,10 @@ body {
   left: 20px;
   height: 80px;
   width: auto;
-  transform: rotate(290deg);
+  transform: rotate(270deg);
+  z-index: 1;
 }
+
 
 #dealerBox {
   position: relative;
